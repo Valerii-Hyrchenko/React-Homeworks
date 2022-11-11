@@ -4,16 +4,10 @@ class Header extends React.Component {
 
   state = {currentPage: "Home"};
 
-  CreateLi = (props) => {
-    return (
-      <li onClick={this.CheckCurrentPage}>{props.menuItem}</li>
-    )
-  }
-
   CheckCurrentPage = (event) => {
     this.setState({currentPage: event.target.textContent});
   }
-
+                                    
   RenderCurrentPage = () => {
     switch (this.state.currentPage) {
       case "Home":
@@ -34,14 +28,30 @@ class Header extends React.Component {
   }
 
   render() {
+    const navDataConfig = [
+      {
+        id: 1,
+        data: "Home",
+      },
+      {
+        id: 2,
+        data: "News",
+      },
+      {
+        id: 3,
+        data: "CallBack",
+      },
+      {
+        id: 4,
+        data: "Contacts",
+      },
+    ];
+
     return (
       <header className="container">
         <nav>
           <ul className="header-ul-flex">
-            <this.CreateLi menuItem="Home"/>
-            <this.CreateLi menuItem="News"/>
-            <this.CreateLi menuItem="CallBack"/>
-            <this.CreateLi menuItem="Contacts"/>
+            {navDataConfig.map(({id, data}) => <li key={id} onClick={this.CheckCurrentPage}>{data}</li>)}
           </ul>
         </nav>
         <div>
@@ -70,7 +80,7 @@ class News extends React.Component {
 class CallBack  extends React.Component {
   render() {
     return (
-      <p>CallBack  page</p>
+      <p>CallBack page</p>
     )
   }
 }
@@ -78,7 +88,7 @@ class CallBack  extends React.Component {
 class Contacts  extends React.Component {
   render() {
     return (
-      <p>Contacts  page</p>
+      <p>Contacts page</p>
     )
   }
 }
