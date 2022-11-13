@@ -1,14 +1,41 @@
 import './App.css';
 import React from 'react';
+import Home from "./components/Home"
+import News from "./components/News"
+import CallBack from "./components/CallBack"
+import Contacts from "./components/Contacts"
+
+const navDataConfig = [
+  {
+    id: 1,
+    data: "Home",
+  },
+  {
+    id: 2,
+    data: "News",
+  },
+  {
+    id: 3,
+    data: "CallBack",
+  },
+  {
+    id: 4,
+    data: "Contacts",
+  },
+];
+
+const CreateLi = ({data, onClick}) => (
+  <li onClick={onClick}>{data}</li>
+);
 class Header extends React.Component {
 
   state = {currentPage: "Home"};
 
-  CheckCurrentPage = (event) => {
+  checkCurrentPage = (event) => {
     this.setState({currentPage: event.target.textContent});
   }
                                     
-  RenderCurrentPage = () => {
+  renderCurrentPage = () => {
     switch (this.state.currentPage) {
       case "Home":
         return (<Home/>);
@@ -28,67 +55,17 @@ class Header extends React.Component {
   }
 
   render() {
-    const navDataConfig = [
-      {
-        id: 1,
-        data: "Home",
-      },
-      {
-        id: 2,
-        data: "News",
-      },
-      {
-        id: 3,
-        data: "CallBack",
-      },
-      {
-        id: 4,
-        data: "Contacts",
-      },
-    ];
-
     return (
       <header className="container">
         <nav>
           <ul className="header-ul-flex">
-            {navDataConfig.map(({id, data}) => <li key={id} onClick={this.CheckCurrentPage}>{data}</li>)}
+            {navDataConfig.map(({id, data}) => <CreateLi onClick={this.checkCurrentPage} data={data} key={id}/>)}
           </ul>
         </nav>
         <div>
-          <this.RenderCurrentPage/>
+          {this.renderCurrentPage()}
         </div>
       </header>
-    )
-  }
-}
-class Home extends React.Component {
-  render() {
-    return (
-      <p>Home page</p>
-    )
-  }
-}
-
-class News extends React.Component {
-  render() {
-    return (
-      <p>News page</p>
-    )
-  }
-}
-
-class CallBack  extends React.Component {
-  render() {
-    return (
-      <p>CallBack page</p>
-    )
-  }
-}
-
-class Contacts  extends React.Component {
-  render() {
-    return (
-      <p>Contacts page</p>
     )
   }
 }
