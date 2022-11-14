@@ -24,7 +24,7 @@ const navDataConfig = [
   },
 ];
 
-const CreateLi = ({data, onClick}) => (
+const Li = ({data, onClick}) => (
   <li onClick={onClick}>{data}</li>
 );
 class Header extends React.Component {
@@ -38,19 +38,19 @@ class Header extends React.Component {
   renderCurrentPage = () => {
     switch (this.state.currentPage) {
       case "Home":
-        return (<Home/>);
+        return <Home/>;
 
       case "News":
-        return (<News/>);
+        return <News/>;
 
       case "CallBack":
-        return (<CallBack/>);
+        return <CallBack/>;
 
       case "Contacts":
-        return (<Contacts/>)
+        return <Contacts/>;
       
       default:
-        return (<Home/>);
+        return <Home/>;
     }
   }
 
@@ -59,7 +59,7 @@ class Header extends React.Component {
       <header className="container">
         <nav>
           <ul className="header-ul-flex">
-            {navDataConfig.map(({id, data}) => <CreateLi onClick={this.checkCurrentPage} data={data} key={id}/>)}
+            {navDataConfig.map(({id, data}) => <Li onClick={this.checkCurrentPage} data={data} key={id}/>)}
           </ul>
         </nav>
         <div>
