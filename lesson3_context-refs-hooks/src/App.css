@@ -1,0 +1,24 @@
+.App {
+  padding: 30px 50px;
+}
+.square {
+  margin: 50px 70px;
+  height: 100px;
+  width: 100px;
+  background-color: rgb(132, 255, 0);
+}
+.square-to-right {
+  margin-left: 200px;
+}
+.video {
+  margin: 80px 35px 20px;
+  max-width: 450px;
+}
+.video-controls {
+  display: flex;
+  align-items: center;
+  margin-left: 50px;
+}
+.video-controls>div {
+  margin-right: 25px;
+}
