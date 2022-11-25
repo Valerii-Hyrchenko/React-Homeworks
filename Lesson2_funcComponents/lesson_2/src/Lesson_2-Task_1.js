@@ -38,13 +38,13 @@ const UserCard = (props) => {
   )
 }
 
-const UserCardText = (props) => {
-  const { name, surname, age} = props.userData;
+const UserCardText = ({userData, isDrink}) => {
+  const { name, surname, age} = userData;
   return (
     <div>
       <div>My info: {name} - {surname} - {age}</div>
       <div>Bar:
-        Hi, {name}! You're {age} age old! I {props.isDrink} get you a drink.
+        Hi, {name}! You're {age} age old! I {isDrink} get you a drink.
       </div>
     </div>
   )

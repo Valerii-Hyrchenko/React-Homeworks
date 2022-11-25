@@ -2,15 +2,11 @@ import './App.css';
 import React from 'react';
 
 class Form extends React.Component {
-    constructor(props) {
-      super(props)
-      
-      this.state = {
+    state = {
         name: "",
         surname: "",
         error: ""
-      };
-    }
+    };
 
     dataValidation = (...data) => {
         if (data.every((data) => (data && data.length >= 3))) {
@@ -30,9 +26,9 @@ class Form extends React.Component {
 
     handleFormSubmit = (event) => {
         event.preventDefault();
-        
-        if (this.dataValidation(this.state.name, this.state.surname)) {
-            alert(`Welcome - ${this.state.name} ${this.state.surname}!`);
+        const { name, surname } = this.state
+        if (this.dataValidation(name, surname)) {
+            alert(`Welcome - ${name} ${surname}!`);
 
             this.setState({
                 name: "",
@@ -55,16 +51,16 @@ class Form extends React.Component {
     }
 }
 
-const FormContent = (props) => {
-    const { name, surname } = props.inputData;
+const FormContent = ({ inputData, handleFormSubmit, handleChangeName, handleChangeSurname }) => {
+    const { name, surname } = inputData;
 
     return (
-        <form onSubmit={props.handleFormSubmit}>
+        <form onSubmit={handleFormSubmit}>
             <div>
-                <input onChange={props.handleChangeName} value={name} type="text" placeholder="Name" name="name"/>
+                <input onChange={handleChangeName} value={name} type="text" placeholder="Name" name="name"/>
             </div>
             <div>
-                <input onChange={props.handleChangeSurname} value={surname} type="text" placeholder="Surname" name="surname"/>
+                <input onChange={handleChangeSurname} value={surname} type="text" placeholder="Surname" name="surname"/>
             </div>
             <button type="submit">Submit</button>
         </form>
