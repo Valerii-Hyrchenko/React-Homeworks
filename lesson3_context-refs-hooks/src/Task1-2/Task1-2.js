@@ -1,35 +1,34 @@
 import '../App.css';
 import React, { useContext, useState } from 'react';
-import { DataContext } from './DataProvider';
-import {RenderAlbum} from './RenderAlbum';
+import { DataContext } from '../context/DataProvider'
+import {Album} from './Album';
 import { Form } from "./RenderForm"
 
 const AppTask1 = () => {
-  const [state, setState] = useState({
-    numberItems: "",
-    albumToRender: [],
-  });
+  const [numberItems, setNumberItems] = useState( "" );
+  const [albumToRender, setAlbumToRender] = useState( [] );
   
   const context = useContext(DataContext);
 
   const handleChangeItems = (event) => {
-    setState({ numberItems: event.target.value });
+    setNumberItems( event.target.value );
   }
 
   const handleSubmitItems = (event) => {
     event.preventDefault();
-    const { album, isLoaded } = context;
-    if (isLoaded) {
-      let albumToRender = album.slice(0, state.numberItems);
-      setState({ albumToRender, numberItems: "" });
-    }
+    const { album } = context;
+    let slicedAlbum = album.slice(0, numberItems);
+    setAlbumToRender( slicedAlbum );
   }
 
   return (
     <div className="App">
-      <Form numberItems={state.numberItems} handleChangeItems={handleChangeItems}
-            handleSubmitItems={handleSubmitItems}/>
-      <RenderAlbum albumToRender={state.albumToRender}/>
+
+      <Form numberItems={numberItems}
+      handleChangeItems={handleChangeItems}
+      handleSubmitItems={handleSubmitItems}/>
+
+      <Album albumToRender={albumToRender}/>
     </div>
   )
 }
