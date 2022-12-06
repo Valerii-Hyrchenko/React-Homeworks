@@ -16,8 +16,7 @@ const AppTask1 = () => {
 
   const handleSubmitItems = (event) => {
     event.preventDefault();
-    const { album } = context;
-    let slicedAlbum = album.slice(0, numberItems);
+    let slicedAlbum = context.slice(0, numberItems);
     setAlbumToRender( slicedAlbum );
   }
 
