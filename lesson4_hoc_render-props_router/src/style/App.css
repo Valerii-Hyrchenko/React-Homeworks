@@ -1,0 +1,15 @@
+body {
+  padding: 50px;
+  background-color: rgb(211, 211, 211);
+}
+.header-list-flex {
+  display: flex;
+}
+
+.header-list-flex>div:not(:last-child) {
+  margin-right: 30px;
+}
+
+.task-3-li {
+  list-style-type: none;
+}
