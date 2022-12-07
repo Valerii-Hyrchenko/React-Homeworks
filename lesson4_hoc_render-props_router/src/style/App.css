@@ -2,14 +2,15 @@ body {
   padding: 50px;
   background-color: rgb(211, 211, 211);
 }
+
 .header-list-flex {
   display: flex;
 }
 
-.header-list-flex>div:not(:last-child) {
+.header-list-flex>li:not(:last-child) {
   margin-right: 30px;
 }
 
-.task-3-li {
+.task-3-li, .header-list-flex>li {
   list-style-type: none;
 }

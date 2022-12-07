@@ -25,7 +25,7 @@ export const RouterApp = () => {
                             <Route path=":orders_id" element={<OrdersId/>}/>
                         </Route>
                     </Route>
-                    <Route path="/navigate" element={<Navigate to="/"/>}/>
+                    <Route path="*" element={<Navigate to="/"/>}/>
                 </Routes>
             </UsersDataProvider>
         </div>

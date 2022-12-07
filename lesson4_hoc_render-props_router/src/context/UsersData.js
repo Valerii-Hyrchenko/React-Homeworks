@@ -23,7 +23,7 @@ export const UsersDataProvider = (props) => {
     getUserData();
   }, []);
   return (
-    <UsersDataContext.Provider value={ usersData }>
+    <UsersDataContext.Provider value={{ usersData }}>
       { props.children }
     </UsersDataContext.Provider>
   )

@@ -6,14 +6,12 @@ const ContactsListTask2 = ({ loaded, contacts }) => {
         <div>
             <div>
                 <h2>Users list:</h2>
-                {contacts.map((item) => {
-                    return (
+                {contacts.map((item) => (
                         <div className="user" key={item.id}>
                             <p>Username: {item.name}</p>
                             <img src={item.thumbnail} alt="user_avatar"/>
                         </div>
-                    )
-                })}
+                    ))}
             </div>
         </div>
     )
