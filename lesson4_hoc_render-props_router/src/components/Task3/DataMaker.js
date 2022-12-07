@@ -7,8 +7,8 @@ export const DtaMaker = ( { url, renderDataUrl } ) => {
     const getData = async (url) => {
         try {
             const response = await fetch(url);
-            const resultRequest = await response.json();
             if (response.ok) {
+                const resultRequest = await response.json();
                 setPosts( resultRequest );
             } else {
                 throw new Error(`Posts can't download, because there was an error code - ${response.status}`);
