@@ -4,27 +4,24 @@ export const UsersDataContext = createContext();
 
 export const UsersDataProvider = (props) => {
   const [usersData, setUsersData] = useState([]);
-  const [error, setError] = useState("");
 
   const getUserData = async () => {
     try {
       const response = await fetch("https://jsonplaceholder.typicode.com/users");
-      const resultRequest = await response.json();
       if (response.ok) {
-        setUsersData( { usersData: resultRequest } );
+        const resultRequest = await response.json();
+        setUsersData( resultRequest );
       } else {
-        setError( { error: resultRequest } );
-        throw new Error(`Album can't download, because there was an error ${error}`);
+        throw new Error(`Users data can't download, because there was an error code - ${response.status}`);
       }
     } catch (error) {
-      console.log('error.message :>> ', error.message);
+      console.log('error :>> ', error.message);
     }
   }
 
   useEffect(()=> {
     getUserData();
   }, []);
-    
   return (
     <UsersDataContext.Provider value={ usersData }>
       { props.children }

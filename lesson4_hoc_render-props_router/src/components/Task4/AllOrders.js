@@ -90,7 +90,7 @@ export const AllOrders = () => {
                 })}
             </div>
             <div>
-                <input onChange={handleChangeOrder} placeholder="enter sequence number 1-6"></input>
+                <input onChange={handleChangeOrder} placeholder="enter sequence number 1-6"/>
             </div>
             <div>
                 <Link to={`/task4/all_orders/${orderToShow}`}>Show order</Link>

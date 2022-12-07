@@ -7,7 +7,8 @@ export const withUsers = (WrappedComponent) => {
             return (
                 <UsersDataContext.Consumer>
                     {(context) => {
-                        return <WrappedComponent {...context} {...this.props}/>
+                        let usersData = { usersData: context };
+                        return <WrappedComponent {...usersData} {...this.props}/>
                     }}
                 </UsersDataContext.Consumer>
             )

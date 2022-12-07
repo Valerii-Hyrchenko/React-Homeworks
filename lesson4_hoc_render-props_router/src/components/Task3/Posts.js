@@ -6,8 +6,6 @@ export const Posts = ({ posts }) => {
             title: post.title,
             completed: post.completed,
         }
-        return (
-            <Post key={post.id} post={currentPost}/>
-        )
+        return <Post key={post.id} post={currentPost}/>
     })
 }
