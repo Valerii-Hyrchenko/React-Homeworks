@@ -18,6 +18,46 @@ const AppContainer = styled.div`
     inset 5px 5px 10px rgba(255, 255, 255, 0.35);
   border-radius: 40px;
   font-family: "Spartan";
+
+  @media (max-width: 1410px) {
+    max-width: 1200px;
+    padding: 40px 45px 40px 35px;
+  }
+
+  @media (max-width: 1280px) {
+    max-width: 1000px;
+    padding: 40px 45px 40px 35px;
+  }
+
+  @media (max-width: 1080px) {
+    max-width: 780px;
+  }
+
+  @media (max-width: 870px) {
+    max-width: 655px;
+  }
+
+  @media (max-width: 740px) {
+    max-width: 495px;
+  }
+
+  @media (max-width: 580px) {
+    max-width: 390px;
+  }
+
+  @media (max-width: 475px) {
+    padding: 15px;
+    max-width: 380px;
+  }
+
+  @media (max-width: 410px) {
+    max-width: 333px;
+  }
+
+  @media (max-width: 360px) {
+    padding: 10px;
+    max-width: 300px;
+  }
 `;
 
 const PrivateRoute = ({ children }) => {

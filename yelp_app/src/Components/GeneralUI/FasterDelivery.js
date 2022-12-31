@@ -6,12 +6,21 @@ const DeliveryWrap = styled.div`
   max-width: 184px;
   position: relative;
   margin-top: 125px;
+
+  @media (max-width: 1080px) {
+    margin-top: 70px;
+  }
 `;
 
 const DeliveryManImg = styled.img`
   position: absolute;
   bottom: 48px;
   left: 0;
+
+  @media (max-width: 1080px) {
+    width: 140px;
+    margin-left: 28px;
+  }
 `;
 
 const ContentContainer = styled.div`

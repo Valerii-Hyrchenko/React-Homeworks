@@ -23,6 +23,10 @@ const Item = styled.li`
 
   &:not(:last-child) {
     margin-bottom: 40px;
+
+    @media (max-width: 1080px) {
+      margin-bottom: 25px;
+    }
   }
 
   ${(props) =>

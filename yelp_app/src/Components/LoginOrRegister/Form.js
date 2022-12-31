@@ -31,6 +31,19 @@ const FormWrapper = styled.div`
   margin: 17px auto 0;
   position: relative;
   z-index: 5;
+
+  @media (max-width: 950px) {
+    padding: 57px 65px 45px;
+    max-width: 300px;
+  }
+
+  @media (max-width: 550px) {
+    padding: 45px 35px 35px;
+    max-width: 250px;
+  }
+  @media (max-width: 380px) {
+    padding: 45px 30px 35px;
+  }
 `;
 
 const FormForPage = styled.form``;
@@ -47,7 +60,7 @@ const InputForPage = styled.input`
   outline: none;
   border: 1px solid transparent;
   font-weight: 700;
-  font-size: 11px;
+  font-size: 15px;
   line-height: 18px;
   text-decoration-line: ${(props) =>
     props.type !== "password" ? "underline" : ""};
@@ -56,6 +69,11 @@ const InputForPage = styled.input`
 
   &::placeholder {
     color: #cc9696;
+  }
+
+  @media (max-width: 950px) {
+    padding: 12px 8px 12px 9px;
+    font-size: 14px;
   }
 `;
 
@@ -71,7 +89,7 @@ const ErrorMessage = styled.p`
   padding: 5px;
   border-radius: 3px;
   background: red;
-  font-size: 16px;
+  font-size: 12px;
   font-weight: 700;
 `;
 

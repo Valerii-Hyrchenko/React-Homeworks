@@ -26,7 +26,42 @@ const ItemsFlexContainer = styled.div`
   display: flex;
   flex-wrap: wrap;
   width: 675px;
-  justify-content: space-evenly;
+  justify-content: space-between;
+
+  & > div:last-of-type {
+    margin-right: auto;
+    margin-left: 20px;
+
+    @media (max-width: 580px) {
+      margin: 0;
+    }
+  }
+
+  @media (max-width: 1410px) {
+    width: 885px;
+  }
+
+  @media (max-width: 1280px) {
+    width: 675px;
+  }
+
+  @media (max-width: 870px) {
+    max-width: 550px;
+  }
+
+  @media (max-width: 740px) {
+    max-width: 425px;
+  }
+
+  @media (max-width: 580px) {
+    max-width: 320px;
+    justify-content: center;
+    margin-bottom: 20px;
+  }
+
+  @media (max-width: 410px) {
+    max-width: 290px;
+  }
 `;
 
 const ItemWrapper = styled.div`

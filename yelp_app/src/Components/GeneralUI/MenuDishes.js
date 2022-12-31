@@ -9,6 +9,20 @@ const MenuDishesWrapper = styled.div`
   justify-content: space-between;
   align-items: center;
   margin-bottom: 46px;
+
+  @media (max-width: 1410px) {
+    max-width: 675px;
+  }
+
+  @media (max-width: 870px) {
+    flex-direction: column;
+    flex-wrap: wrap;
+    height: 180px;
+  }
+
+  @media (max-width: 360px) {
+    max-width: 278px;
+  }
 `;
 
 const DishContainer = styled.div`
@@ -22,6 +36,22 @@ const DishContainer = styled.div`
     props.active ? "0px 4px 46px rgba(0, 0, 0, 0.1)" : ""};
   transition: all 200ms linear;
   cursor: pointer;
+
+  @media (max-width: 870px) {
+    width: 250px;
+    height: 50px;
+    border-radius: 15px;
+    margin-bottom: 10px;
+    margin-right: 0;
+  }
+
+  @media (max-width: 740px) {
+    width: 150px;
+  }
+
+  @media (max-width: 580px) {
+    width: 130px;
+  }
 
   ${(props) =>
     props.active &&
@@ -39,17 +69,36 @@ const DishImg = styled.img`
   top: 33%;
   left: 50%;
   transform: translate(-50%, -50%);
+
+  @media (max-width: 870px) {
+    width: 40px;
+    left: 15px;
+    top: 50%;
+    transform: translate(0, -50%);
+  }
+
+  @media (max-width: 740px) {
+    left: 10px;
+  }
 `;
 
 const DishTitle = styled.p`
   position: absolute;
   bottom: 13%;
-  left: 50%;
+  left: 55%;
   transform: translate(-50%, -50%);
   font-weight: 500;
   font-size: 14px;
   color: #585858;
   transition: all 200ms linear;
+
+  @media (max-width: 740px) {
+    left: 58%;
+  }
+
+  @media (max-width: 580px) {
+    left: 63%;
+  }
 `;
 
 export const MenuDishes = () => {

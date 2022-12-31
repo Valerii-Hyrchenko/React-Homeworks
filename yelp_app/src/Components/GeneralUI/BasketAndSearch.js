@@ -9,7 +9,6 @@ const BasketFlexContainer = styled.div`
   display: flex;
   justify-content: flex-end;
   position: relative;
-  z-index: 5;
 `;
 
 const SearchWrapper = styled.div`
@@ -18,18 +17,37 @@ const SearchWrapper = styled.div`
   border-radius: 15px;
   margin-right: 20px;
   cursor: pointer;
+
+  @media (max-width: 740px) {
+    padding: 13px;
+    max-height: 14px;
+    margin-right: 10px;
+  }
 `;
 
-const SearchImg = styled.img``;
+const SearchImg = styled.img`
+  @media (max-width: 740px) {
+    width: 14px;
+  }
+`;
 
 const BasketWrapper = styled.div`
   padding: 16px;
   background: #666666;
   border-radius: 15px;
   cursor: pointer;
+
+  @media (max-width: 740px) {
+    padding: 12px;
+    max-height: 14px;
+  }
 `;
 
-const BasketImg = styled.img``;
+const BasketImg = styled.img`
+  @media (max-width: 740px) {
+    width: 14px;
+  }
+`;
 
 export const BasketAndSearch = () => {
   const dispatch = useDispatch();

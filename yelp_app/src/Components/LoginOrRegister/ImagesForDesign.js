@@ -15,22 +15,122 @@ const ImagesWrapper = styled.div`
 const RedApple = styled.img`
   position: absolute;
   bottom: 35px;
-  left: 44px;
+  left: 25px;
+
+  @media (max-width: 1080px) {
+    max-width: 102px;
+  }
+
+  @media (max-width: 740px) {
+    left: -20px;
+    bottom: -40px;
+  }
+
+  @media (max-width: 580px) {
+    max-width: 80px;
+    left: -24px;
+  }
+
+  @media (max-width: 475px) {
+    display: none;
+  }
 `;
 const YellowApple = styled.img`
   position: absolute;
   bottom: -54px;
   right: -51px;
+
+  @media (max-width: 1410px) {
+    bottom: -34px;
+    right: -31px;
+  }
+
+  @media (max-width: 1080px) {
+    max-width: 168px;
+    bottom: -20px;
+  }
+
+  @media (max-width: 740px) {
+    right: -37px;
+    bottom: -36px;
+    max-width: 128px;
+  }
+
+  @media (max-width: 580px) {
+    max-width: 110px;
+    bottom: -30px;
+    right: -15px;
+  }
+
+  @media (max-width: 475px) {
+    display: none;
+  }
 `;
 const Leaf = styled.img`
   position: absolute;
   top: -54px;
   right: -61px;
+
+  @media (max-width: 1410px) {
+    top: -37px;
+    right: -41px;
+  }
+
+  @media (max-width: 1080px) {
+    max-width: 150px;
+  }
+
+  @media (max-width: 580px) {
+    max-width: 100px;
+    top: -33px;
+    right: -38px;
+  }
+
+  @media (max-width: 475px) {
+    max-width: 70px;
+    top: -9px;
+    right: -6px;
+  }
+
+  @media (max-width: 410px) {
+    max-width: 60px;
+  }
+
+  @media (max-width: 360px) {
+    max-width: 50px;
+    top: -3px;
+    right: -1px;
+  }
 `;
 const Grapes = styled.img`
   position: absolute;
   top: -52px;
   left: -36px;
+
+  @media (max-width: 1410px) {
+    top: -40px;
+    left: -30px;
+  }
+
+  @media (max-width: 1080px) {
+    max-width: 155px;
+  }
+
+  @media (max-width: 580px) {
+    max-width: 110px;
+    left: -19px;
+  }
+
+  @media (max-width: 475px) {
+    max-width: 90px;
+    top: -13px;
+    left: -14px;
+  }
+
+  @media (max-width: 360px) {
+    top: -10px;
+    left: -9px;
+  }
 `;
 
 export const ImagesForDesign = () => {

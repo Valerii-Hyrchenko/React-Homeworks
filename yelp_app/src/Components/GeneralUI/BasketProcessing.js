@@ -15,8 +15,8 @@ const BasketProcessingContainer = styled.div`
   top: -30px;
   right: -54px;
   width: 279px;
-  height: 100vh;
   padding: 25px 21px 24px 20px;
+  z-index: 10;
   background-color: #fff;
   box-shadow: 0px 4px 46px rgba(0, 0, 0, 0.2);
   border-radius: 30px 0px 0px 30px;
@@ -33,6 +33,24 @@ const BasketProcessingContainer = styled.div`
       transform: translateX(0);
       opacity: 1;
     }
+  }
+
+  @media (max-width: 1410px) {
+    top: -117px;
+  }
+
+  @media (max-width: 740px) {
+    top: -87px;
+    right: -28px;
+  }
+
+  @media (max-width: 580px) {
+    top: -50px;
+    right: -18px;
+  }
+
+  @media (max-width: 360px) {
+    width: 275px;
   }
 `;
 
@@ -184,7 +202,7 @@ const OrderButton = styled.button`
 `;
 
 const InProgressCookingWrap = styled.div`
-  padding: 108px 8px 20px 11px;
+  padding: 108px 8px 120px 11px;
   text-align: center;
   width: 256px;
   animation-name: "inProgress";

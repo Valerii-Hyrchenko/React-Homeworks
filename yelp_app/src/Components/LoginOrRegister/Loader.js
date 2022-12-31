@@ -6,14 +6,30 @@ const LoaderWrapper = styled.div`
   position: relative;
   max-width: 750px;
   margin: 0 auto;
-  padding: 250px 0 339px;
+  padding: 307px 0 339px;
+
+  @media (max-width: 850px) {
+    max-width: 380px;
+    padding: 290px 0 250px;
+  }
+
+  @media (max-width: 550px) {
+    max-width: 300px;
+  }
 `;
 
 const LoaderTitle = styled.h2`
   font-weight: 800;
   font-size: 72px;
-  line-height: 65px;
   text-align: center;
+
+  @media (max-width: 850px) {
+    font-size: 56px;
+  }
+
+  @media (max-width: 550px) {
+    font-size: 44px;
+  }
 `;
 
 const ImagesWrapper = styled.div`
@@ -24,7 +40,7 @@ const ImagesWrapper = styled.div`
   bottom: 0;
   animation-name: "fruitRotation";
   animation-duration: 3000ms;
-  animation-iteration-count: infinite;
+  /* animation-iteration-count: infinite; */
   transition-timing-function: ease-in-out;
 
   @keyframes fruitRotation {
@@ -41,12 +57,42 @@ const FlyingBurgerImg = styled.img`
   position: absolute;
   top: 35px;
   right: 7px;
+
+  @media (max-width: 850px) {
+    max-width: 250px;
+    top: 123px;
+    right: -83px;
+  }
+
+  @media (max-width: 550px) {
+    right: -70px;
+  }
+
+  @media (max-width: 440px) {
+    top: 105px;
+    right: -10px;
+  }
 `;
 
 const GrapesImg = styled.img`
   position: absolute;
   bottom: 160px;
   left: 40px;
+
+  @media (max-width: 850px) {
+    max-width: 168px;
+    bottom: 108px;
+    left: -43px;
+  }
+
+  @media (max-width: 550px) {
+    left: -13px;
+    bottom: 100px;
+  }
+
+  @media (max-width: 440px) {
+    left: 25px;
+  }
 `;
 
 const LoaderText = styled.p`
@@ -54,7 +100,16 @@ const LoaderText = styled.p`
   font-size: 24px;
   line-height: 55px;
   text-align: center;
-  margin-top: 28px;
+  margin-top: 15px;
+
+  @media (max-width: 850px) {
+    font-size: 20px;
+    margin-top: 5px;
+  }
+
+  @media (max-width: 550px) {
+    font-size: 16px;
+  }
 `;
 
 export const Loader = () => {

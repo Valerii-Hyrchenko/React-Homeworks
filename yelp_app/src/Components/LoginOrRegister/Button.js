@@ -3,6 +3,10 @@ import styled from "styled-components";
 const ButtonWrapper = styled.div`
   margin-top: 37px;
   text-align: center;
+
+  @media (max-width: 550px) {
+    margin-top: 25px;
+  }
 `;
 
 const ButtonForPage = styled.button`
@@ -25,6 +29,10 @@ const ButtonForPage = styled.button`
     color: #2d9cdb;
     border: 1px solid #2d9cdb;
     transition: all 350ms linear;
+  }
+
+  @media (max-width: 950px) {
+    padding: 12px 0;
   }
 `;
 
