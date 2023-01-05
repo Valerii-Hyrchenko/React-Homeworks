@@ -9,6 +9,55 @@ import { Route } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { useEffect } from "react";
 
+const App = () => {
+  const currentAuthUser = useSelector(
+    (state) => state.currentAuthUser.currentAuthUser
+  );
+  const loading = useSelector((state) => state.loader.loading);
+  useEffect(() => {
+    if (currentAuthUser === null) {
+      localStorage.setItem("authUser", JSON.stringify(null));
+    } else {
+      localStorage.setItem("authUser", JSON.stringify(currentAuthUser));
+    }
+  }, [currentAuthUser]);
+
+  return (
+    <AppContainer>
+      {loading ? (
+        <Loader />
+      ) : (
+        <Routes>
+          <Route
+            path="/"
+            element={
+              <PrivateRoute>
+                <GeneralPage />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/login"
+            element={currentAuthUser ? <Navigate to="/" /> : <LoginPage />}
+          />
+          <Route path="/register" element={<RegisterPage />} />
+          <Route path="*" element={<Navigate to="/login" />} />
+        </Routes>
+      )}
+    </AppContainer>
+  );
+};
+
+const PrivateRoute = ({ children }) => {
+  const currentAuthUser = useSelector(
+    (state) => state.currentAuthUser.currentAuthUser
+  );
+  if (currentAuthUser === null) return <Navigate to={"/login"} />;
+  return children;
+};
+
+export default App;
+
 const AppContainer = styled.div`
   max-width: 1340px;
   margin: 0 auto;
@@ -59,52 +108,3 @@ const AppContainer = styled.div`
     max-width: 300px;
   }
 `;
-
-const PrivateRoute = ({ children }) => {
-  const currentAuthUser = useSelector(
-    (state) => state.currentAuthUser.currentAuthUser
-  );
-  if (currentAuthUser === null) return <Navigate to={"/login"} />;
-  return children;
-};
-
-const App = () => {
-  const currentAuthUser = useSelector(
-    (state) => state.currentAuthUser.currentAuthUser
-  );
-  const loading = useSelector((state) => state.loader.loading);
-  useEffect(() => {
-    if (currentAuthUser === null) {
-      localStorage.setItem("authUser", JSON.stringify(null));
-    } else {
-      localStorage.setItem("authUser", JSON.stringify(currentAuthUser));
-    }
-  }, [currentAuthUser]);
-
-  return (
-    <AppContainer>
-      {loading ? (
-        <Loader />
-      ) : (
-        <Routes>
-          <Route
-            path="/"
-            element={
-              <PrivateRoute>
-                <GeneralPage />
-              </PrivateRoute>
-            }
-          />
-          <Route
-            path="/login"
-            element={currentAuthUser ? <Navigate to="/" /> : <LoginPage />}
-          />
-          <Route path="/register" element={<RegisterPage />} />
-          <Route path="*" element={<Navigate to="/login" />} />
-        </Routes>
-      )}
-    </AppContainer>
-  );
-};
-
-export default App;

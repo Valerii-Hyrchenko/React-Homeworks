@@ -1,6 +1,16 @@
 import styled from "styled-components";
 import flyingBurger from "../../assets/img/burger_fly/burger_fly.svg";
 
+export const Promotion = () => {
+  return (
+    <PromotionContainer>
+      <PromotionImg src={flyingBurger} alt="promotion-flying-burger" />
+      <PromotionTitle>-50% Off</PromotionTitle>
+      <PromotionText>the full price of burgers</PromotionText>
+    </PromotionContainer>
+  );
+};
+
 const PromotionContainer = styled.div`
   width: 176px;
   margin-top: 109px;
@@ -8,12 +18,23 @@ const PromotionContainer = styled.div`
   background: #ab97f3;
   border-radius: 30px;
   position: relative;
+
+  @media (max-width: 475px) {
+    width: 148px;
+    padding-top: 60px;
+  }
 `;
 
 const PromotionImg = styled.img`
   position: absolute;
   top: -160px;
   right: -105px;
+
+  @media (max-width: 475px) {
+    width: 300px;
+    top: -134px;
+    right: -88px;
+  }
 `;
 
 const PromotionTitle = styled.p`
@@ -30,13 +51,3 @@ const PromotionText = styled.p`
   line-height: 16px;
   color: #ffffff;
 `;
-
-export const Promotion = () => {
-  return (
-    <PromotionContainer>
-      <PromotionImg src={flyingBurger} alt="promotion-flying-burger" />
-      <PromotionTitle>-50% Off</PromotionTitle>
-      <PromotionText>the full price of burgers</PromotionText>
-    </PromotionContainer>
-  );
-};

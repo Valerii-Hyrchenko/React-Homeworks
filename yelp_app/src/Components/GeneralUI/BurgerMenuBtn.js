@@ -1,12 +1,33 @@
 import styled from "styled-components";
 
+export const BurgerMenuBtn = ({
+  isBurgerCheckboxChecked,
+  setIsBurgerCheckboxChecked,
+}) => {
+  const handleBurgerSwitch = () => setIsBurgerCheckboxChecked((prev) => !prev);
+
+  return (
+    <BurgerMenuBtnWrapper isBurgerCheckboxChecked={isBurgerCheckboxChecked}>
+      <BurgerCheckbox
+        id="burger-checkbox"
+        checked={isBurgerCheckboxChecked}
+        onChange={handleBurgerSwitch}
+        type="checkbox"
+      />
+      <BurgerAnimationWrapper>
+        <BurgerAnimation />
+      </BurgerAnimationWrapper>
+    </BurgerMenuBtnWrapper>
+  );
+};
+
 const BurgerMenuBtnWrapper = styled.div`
   position: absolute;
   top: 24px;
   left: 30px;
   box-sizing: border-box;
   display: none;
-  z-index: 5;
+  z-index: ${(props) => (props.isBurgerCheckboxChecked ? 15 : 5)};
 
   @media (max-width: 1080px) {
     display: block;
@@ -16,6 +37,29 @@ const BurgerMenuBtnWrapper = styled.div`
     top: 15px;
     left: 23px;
   }
+
+  ${(props) =>
+    props.isBurgerCheckboxChecked &&
+    `${BurgerAnimationWrapper}{
+      &::before {
+        transform: translateY(14px) rotate(135deg);
+
+        @media (max-width: 580px) {
+          transform: translateY(13px) rotate(134deg);
+        }
+      },
+      &::after {
+        transform: translateY(-12px) rotate(-135deg);
+        
+        @media (max-width: 580px) {
+          transform: translateY(-9px) rotate(-134deg);
+        }
+      },
+      & div {
+        transform: scale(1);
+        background-color:transparent;
+      }
+  }`}
 `;
 
 const BurgerCheckbox = styled.input`
@@ -57,50 +101,6 @@ const BurgerAnimationWrapper = styled.div`
       margin: 5px 0;
     }
   }
-
-  ${(props) =>
-    props.isBurgerCheckboxChecked
-      ? `
-      &::before {
-        transform: translateY(14px) rotate(135deg);
-
-        @media (max-width: 580px) {
-          transform: translateY(13px) rotate(134deg);
-        }
-      },
-      &::after {
-        transform: translateY(-12px) rotate(-135deg);
-        
-        @media (max-width: 580px) {
-          transform: translateY(-9px) rotate(-134deg);
-        }
-      },
-      & div {
-        transform: scale(1);
-        background-color:transparent;
-      }`
-      : null}
 `;
 
 const BurgerAnimation = styled.div``;
-
-export const BurgerMenuBtn = ({
-  isBurgerCheckboxChecked,
-  setIsBurgerCheckboxChecked,
-}) => {
-  const handleBurgerSwitch = () => setIsBurgerCheckboxChecked((prev) => !prev);
-
-  return (
-    <BurgerMenuBtnWrapper>
-      <BurgerCheckbox
-        id="burger-checkbox"
-        checked={isBurgerCheckboxChecked}
-        onChange={handleBurgerSwitch}
-        type="checkbox"
-      />
-      <BurgerAnimationWrapper isBurgerCheckboxChecked={isBurgerCheckboxChecked}>
-        <BurgerAnimation />
-      </BurgerAnimationWrapper>
-    </BurgerMenuBtnWrapper>
-  );
-};

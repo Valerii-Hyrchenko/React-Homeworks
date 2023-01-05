@@ -1,5 +1,5 @@
-import { SELECT_GROUP } from "./types";
-import { menuDishesConfig } from "../Components/allConfigsConst";
+import { SELECT_GROUP } from "../types";
+import { menuDishesConfig } from "../../Components/allConfigsConst";
 
 const initialState = { activeDishGroup: menuDishesConfig[0].title };
 

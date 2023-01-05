@@ -5,21 +5,130 @@ import { hideBasket } from "../../redux/actions";
 import { changeQuantityDishes } from "../../redux/actions";
 import { clearBasket } from "../../redux/actions";
 import { useState } from "react";
+import { firstTimeHideBasket } from "../../redux/actions";
+import { firstTimeShowBasket } from "../../redux/actions";
 
 import arrow from "../../assets/img/delivery/arrow.svg";
 import trash from "../../assets/icons/basket/trash.svg";
 import inProgressImg from "../../assets/img/in_progress_cooking/in_progress_cooking.svg";
 
+export const BasketProcessing = () => {
+  const [isOrderComplete, setIsOrderComplete] = useState(false);
+
+  const selectedDishes = useSelector(
+    (state) => state.basketProcessing.selectedDishes
+  );
+
+  const dispatch = useDispatch();
+
+  const handleRemoveDishItem = (item) => dispatch(updateBasket(item));
+
+  const handleChangeDishQuantity =
+    ({ id }) =>
+    ({ target }) => {
+      const { value } = target;
+      dispatch(changeQuantityDishes({ id, value }));
+    };
+
+  const handleMakeOrder = () => {
+    if (selectedDishes.length > 0) {
+      console.log("dataToSendingOrder :>> ", selectedDishes);
+      setIsOrderComplete((prev) => !prev);
+    } else return;
+  };
+
+  return (
+    <BasketProcessingContainer>
+      {isOrderComplete ? (
+        <InProgressCookingWrap>
+          <InProgressCookingImg src={inProgressImg} alt="in-progress-img" />
+          <InProgressTitle>in the process of cooking...</InProgressTitle>
+          <OrderButton
+            onClick={() => {
+              dispatch(hideBasket());
+              dispatch(clearBasket());
+              dispatch(firstTimeShowBasket());
+            }}
+          >
+            Order more
+          </OrderButton>
+        </InProgressCookingWrap>
+      ) : (
+        <ProcessingWrapper>
+          <BasketTitleFlexWrap>
+            <BasketTitle>Basket</BasketTitle>
+            <ArrowWrapper
+              onClick={() => {
+                dispatch(hideBasket());
+                if (selectedDishes.length > 0) {
+                  dispatch(firstTimeHideBasket());
+                }
+              }}
+            >
+              <ArrowImg src={arrow} alt="basket-img" />
+            </ArrowWrapper>
+          </BasketTitleFlexWrap>
+          {selectedDishes.length === 0 ? (
+            <WhenDontChosen>You haven't selected any dishes yet</WhenDontChosen>
+          ) : (
+            selectedDishes.map((item) => (
+              <ItemFlexWrapper key={item.id}>
+                <DescriptionFlexWrap>
+                  <DescriptionIconWrapper>
+                    <DishIcon src={item.img} alt="dish-icon" />
+                  </DescriptionIconWrapper>
+                  <DescriptionTitleWrap>
+                    <DescriptionTitle>{item.title}</DescriptionTitle>
+                    <DescriptionText>{item.text}</DescriptionText>
+                  </DescriptionTitleWrap>
+                </DescriptionFlexWrap>
+                <QuantityAndPriceFlexWrap>
+                  <QuantityOfItem>
+                    x
+                    <EnterQuantity
+                      onChange={handleChangeDishQuantity(item)}
+                      type="number"
+                      value={item.quantity}
+                      autoComplete="off"
+                    />
+                  </QuantityOfItem>
+                  <TotalItemPrice>
+                    ${+item.price * +item.quantity}
+                  </TotalItemPrice>
+                </QuantityAndPriceFlexWrap>
+                <TrashBasketImg
+                  onClick={() => handleRemoveDishItem(item)}
+                  src={trash}
+                  alt="trash-basket-img"
+                />
+              </ItemFlexWrapper>
+            ))
+          )}
+          <OrderButtonWrap>
+            <OrderButton onClick={handleMakeOrder}>
+              Order - $
+              {selectedDishes.reduce(
+                (totalPrice, currentPrice) =>
+                  +totalPrice + +currentPrice.price * +currentPrice.quantity,
+                0
+              )}
+            </OrderButton>
+          </OrderButtonWrap>
+        </ProcessingWrapper>
+      )}
+    </BasketProcessingContainer>
+  );
+};
+
 const BasketProcessingContainer = styled.div`
-  position: absolute;
-  top: -30px;
-  right: -54px;
+  position: fixed;
+  max-height: 79vh;
   width: 279px;
   padding: 25px 21px 24px 20px;
-  z-index: 10;
   background-color: #fff;
   box-shadow: 0px 4px 46px rgba(0, 0, 0, 0.2);
   border-radius: 30px 0px 0px 30px;
+  overflow-y: scroll;
   animation-name: "basket";
   animation-duration: 800ms;
   transition-timing-function: ease-in-out;
@@ -33,24 +142,6 @@ const BasketProcessingContainer = styled.div`
       transform: translateX(0);
       opacity: 1;
     }
-  }
-
-  @media (max-width: 1410px) {
-    top: -117px;
-  }
-
-  @media (max-width: 740px) {
-    top: -87px;
-    right: -28px;
-  }
-
-  @media (max-width: 580px) {
-    top: -50px;
-    right: -18px;
-  }
-
-  @media (max-width: 360px) {
-    width: 275px;
   }
 `;
 
@@ -228,103 +319,3 @@ const InProgressTitle = styled.p`
   text-align: center;
   margin-bottom: 30px;
 `;
-
-export const BasketProcessing = () => {
-  const [isOrderComplete, setIsOrderComplete] = useState(false);
-
-  const selectedDishes = useSelector(
-    (state) => state.basketProcessing.selectedDishes
-  );
-
-  const dispatch = useDispatch();
-
-  const handleRemoveDishItem = (item) => dispatch(updateBasket(item));
-
-  const handleChangeDishQuantity =
-    ({ id }) =>
-    ({ target }) => {
-      const { value } = target;
-      dispatch(changeQuantityDishes({ id, value }));
-    };
-
-  const handleMakeOrder = () => {
-    if (selectedDishes.length > 0) {
-      console.log("dataToSendingOrder :>> ", selectedDishes);
-      setIsOrderComplete((prev) => !prev);
-    } else return;
-  };
-
-  return (
-    <BasketProcessingContainer>
-      {isOrderComplete ? (
-        <InProgressCookingWrap>
-          <InProgressCookingImg src={inProgressImg} alt="in-progress-img" />
-          <InProgressTitle>in the process of cooking...</InProgressTitle>
-          <OrderButton
-            onClick={() => {
-              dispatch(hideBasket());
-              dispatch(clearBasket());
-            }}
-          >
-            Order more
-          </OrderButton>
-        </InProgressCookingWrap>
-      ) : (
-        <ProcessingWrapper>
-          <BasketTitleFlexWrap>
-            <BasketTitle>Basket</BasketTitle>
-            <ArrowWrapper onClick={() => dispatch(hideBasket())}>
-              <ArrowImg src={arrow} alt="basket-img" />
-            </ArrowWrapper>
-          </BasketTitleFlexWrap>
-          {selectedDishes.length === 0 ? (
-            <WhenDontChosen>You haven't selected any dishes yet</WhenDontChosen>
-          ) : (
-            selectedDishes.map((item) => (
-              <ItemFlexWrapper key={item.id}>
-                <DescriptionFlexWrap>
-                  <DescriptionIconWrapper>
-                    <DishIcon src={item.img} alt="dish-icon" />
-                  </DescriptionIconWrapper>
-                  <DescriptionTitleWrap>
-                    <DescriptionTitle>{item.title}</DescriptionTitle>
-                    <DescriptionText>{item.text}</DescriptionText>
-                  </DescriptionTitleWrap>
-                </DescriptionFlexWrap>
-                <QuantityAndPriceFlexWrap>
-                  <QuantityOfItem>
-                    x
-                    <EnterQuantity
-                      onChange={handleChangeDishQuantity(item)}
-                      type="number"
-                      value={item.quantity}
-                      autoComplete="off"
-                    />
-                  </QuantityOfItem>
-                  <TotalItemPrice>
-                    ${+item.price * +item.quantity}
-                  </TotalItemPrice>
-                </QuantityAndPriceFlexWrap>
-                <TrashBasketImg
-                  onClick={() => handleRemoveDishItem(item)}
-                  src={trash}
-                  alt="trash-basket-img"
-                />
-              </ItemFlexWrapper>
-            ))
-          )}
-          <OrderButtonWrap>
-            <OrderButton onClick={handleMakeOrder}>
-              Order - $
-              {selectedDishes.reduce(
-                (totalPrice, currentPrice) =>
-                  +totalPrice + +currentPrice.price * +currentPrice.quantity,
-                0
-              )}
-            </OrderButton>
-          </OrderButtonWrap>
-        </ProcessingWrapper>
-      )}
-    </BasketProcessingContainer>
-  );
-};

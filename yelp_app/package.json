@@ -32,6 +32,7 @@
       "react-app/jest"
     ]
   },
+  "homepage": "https://valerii-hyrchenko.github.io/Yelp_App/",
   "browserslist": {
     "production": [
       ">0.2%",

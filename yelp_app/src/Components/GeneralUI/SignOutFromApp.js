@@ -4,6 +4,22 @@ import { signOutUser } from "../../redux/actions";
 import { useDispatch } from "react-redux";
 import styled from "styled-components";
 
+export const SignOutFromApp = () => {
+  const dispatch = useDispatch();
+  const { goTo } = useNav();
+
+  const handleSignOut = async (event) => {
+    event.preventDefault();
+    dispatch(signOutUser());
+    goTo("/");
+  };
+  return (
+    <SignOutButtonWrap>
+      <SignOutButton onClick={handleSignOut}>Sign out</SignOutButton>
+    </SignOutButtonWrap>
+  );
+};
+
 const SignOutButtonWrap = styled.div`
   text-align: center;
   margin-top: 30px;
@@ -27,19 +43,3 @@ const SignOutButton = styled.button`
     border: 1px solid #2d9cdb;
   }
 `;
-
-export const SignOutFromApp = () => {
-  const dispatch = useDispatch();
-  const { goTo } = useNav();
-
-  const handleSignOut = async (event) => {
-    event.preventDefault();
-    dispatch(signOutUser());
-    goTo("/");
-  };
-  return (
-    <SignOutButtonWrap>
-      <SignOutButton onClick={handleSignOut}>Sign out</SignOutButton>
-    </SignOutButtonWrap>
-  );
-};

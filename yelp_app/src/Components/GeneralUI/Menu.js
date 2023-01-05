@@ -2,6 +2,35 @@ import { useState } from "react";
 import styled from "styled-components";
 import { menuConfig } from "../allConfigsConst";
 
+export const Menu = () => {
+  const [activeItem, setActiveItem] = useState(menuConfig[0]);
+
+  const changeActiveItem = (item) => setActiveItem(item);
+
+  return (
+    <MenuWrapper>
+      <MenuNav>
+        <MenuList>
+          {menuConfig.map((item) => (
+            <Item
+              key={item.id}
+              onClick={() => changeActiveItem(item)}
+              active={item.id === activeItem.id}
+            >
+              <IconWrap>
+                <Icon src={item.img} alt={`${item.title}-icon`} />
+              </IconWrap>
+              <ItemNameContainer>
+                <ItemName>{item.title}</ItemName>
+              </ItemNameContainer>
+            </Item>
+          ))}
+        </MenuList>
+      </MenuNav>
+    </MenuWrapper>
+  );
+};
+
 const MenuWrapper = styled.div`
   max-width: 184px;
 `;
@@ -86,32 +115,3 @@ const Icon = styled.img`
   transform: translate(-50%, -50%);
   transition: all 200ms linear;
 `;
-
-export const Menu = () => {
-  const [activeItem, setActiveItem] = useState(menuConfig[0]);
-
-  const changeActiveItem = (item) => setActiveItem(item);
-
-  return (
-    <MenuWrapper>
-      <MenuNav>
-        <MenuList>
-          {menuConfig.map((item) => (
-            <Item
-              key={item.id}
-              onClick={() => changeActiveItem(item)}
-              active={item.id === activeItem.id}
-            >
-              <IconWrap>
-                <Icon src={item.img} alt={`${item.title}-icon`} />
-              </IconWrap>
-              <ItemNameContainer>
-                <ItemName>{item.title}</ItemName>
-              </ItemNameContainer>
-            </Item>
-          ))}
-        </MenuList>
-      </MenuNav>
-    </MenuWrapper>
-  );
-};

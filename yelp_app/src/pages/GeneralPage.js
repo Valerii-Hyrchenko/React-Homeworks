@@ -6,6 +6,7 @@ import { Title } from "../Components/GeneralUI/Title";
 import { MenuDishes } from "../Components/GeneralUI/MenuDishes";
 import { DishesItems } from "../Components/GeneralUI/DishesItems";
 import { BasketAndSearch } from "../Components/GeneralUI/BasketAndSearch";
+import { ScrollToTopButton } from "../Components/GeneralUI/ScrollToTopButton";
 import { Promotion } from "../Components/GeneralUI/Promotion";
 import { News } from "../Components/GeneralUI/News";
 import { PopupNewsBtn } from "../Components/GeneralUI/PopupNewsBtn";
@@ -13,7 +14,62 @@ import { BurgerMenuBtn } from "../Components/GeneralUI/BurgerMenuBtn";
 import styled from "styled-components";
 import { useState } from "react";
 
-import showNewsIcon from "../assets/icons/show_news/show_news.svg";
+export const GeneralPage = () => {
+  const [isNewsCheckboxChecked, setIsNewsCheckboxChecked] = useState(false);
+  const [isBurgerCheckboxChecked, setIsBurgerCheckboxChecked] = useState(false);
+
+  const handleNewsSwitcher = () => setIsNewsCheckboxChecked((prev) => !prev);
+  const handleLeftBarSwitcher = () =>
+    setIsBurgerCheckboxChecked((prev) => !prev);
+
+  return (
+    <GeneralPageFlexWrapper>
+      <LeftBarWrapper isBurgerCheckboxChecked={isBurgerCheckboxChecked}>
+        <LeftBarOutsideSpace onClick={handleLeftBarSwitcher} />
+        <LeftBarContainer>
+          <Avatar />
+          <Menu />
+          <SignOutFromApp />
+          <FasterDelivery />
+        </LeftBarContainer>
+      </LeftBarWrapper>
+      <GeneralUIContainer>
+        <MenuDishesContainer>
+          <BurgerMenuBtn
+            isBurgerCheckboxChecked={isBurgerCheckboxChecked}
+            setIsBurgerCheckboxChecked={setIsBurgerCheckboxChecked}
+          />
+          <TitleDishesWrapper>
+            <Title />
+            <ShowNewsPopupContainer>
+              <ShowNewsBtnContainer>
+                <ShowNewsTitle>Press! See more news</ShowNewsTitle>
+                <PopupNewsBtn
+                  setIsNewsCheckboxChecked={setIsNewsCheckboxChecked}
+                  isNewsCheckboxChecked={isNewsCheckboxChecked}
+                />
+              </ShowNewsBtnContainer>
+              <BasketAndSearch />
+            </ShowNewsPopupContainer>
+          </TitleDishesWrapper>
+          <MenuDishes />
+          <DishesItems />
+        </MenuDishesContainer>
+        <ScrollToTopButton />
+        <PromotionWrapper isNewsCheckboxChecked={isNewsCheckboxChecked}>
+          <PromotionOutsideSpace onClick={handleNewsSwitcher} />
+          <PromotionContainer>
+            <BasketInPromotionWrap>
+              <BasketAndSearch />
+            </BasketInPromotionWrap>
+            <Promotion />
+            <News />
+          </PromotionContainer>
+        </PromotionWrapper>
+      </GeneralUIContainer>
+    </GeneralPageFlexWrapper>
+  );
+};
 
 const GeneralPageFlexWrapper = styled.div`
   display: flex;
@@ -21,35 +77,72 @@ const GeneralPageFlexWrapper = styled.div`
   position: relative;
 `;
 
-const LeftBarContainer = styled.div`
-  max-width: 188px;
-
+const LeftBarWrapper = styled.div`
   @media (max-width: 1080px) {
     display: ${(props) => (props.isBurgerCheckboxChecked ? "block" : "none")};
-    position: absolute;
-    top: 0;
-    left: 10px;
-    z-index: 4;
-    background-color: rgb(234, 241, 254);
-    padding: 10px 30px 30px;
-    border-radius: 15px;
-    box-shadow: 0px 3px 20px 6px rgba(0, 0, 0, 0.75);
-
-    animation-name: "menu";
-    animation-duration: 800ms;
-    transition-timing-function: ease-in-out;
-
-    @keyframes menu {
-      0% {
-        transform: translateX(-500px);
-        opacity: 0;
-      }
-      100% {
-        transform: translateX(0);
-        opacity: 1;
-      }
-    }
   }
+
+  ${(props) =>
+    props.isBurgerCheckboxChecked &&
+    `
+      ${LeftBarContainer} {
+        position: absolute;
+        top: 0;
+        left: 10px;
+        z-index: 12;
+        background-color: rgb(234, 241, 254);
+        padding: 10px 30px 30px;
+        border-radius: 15px;
+        box-shadow: 0px 3px 20px 6px rgba(0, 0, 0, 0.75);
+
+        animation-name: "menu";
+        animation-duration: 800ms;
+        transition-timing-function: ease-in-out;
+
+        @keyframes menu {
+          0% {
+            transform: translateX(-500px);
+            opacity: 0;
+          }
+          100% {
+            transform: translateX(0);
+            opacity: 1;
+          }
+        }
+
+        @media (max-width: 580px) {
+          left: 3px;
+        }
+
+        @media (max-width: 480px) {
+          padding: 10px 24px 30px;
+        }
+
+        @media (max-width: 360px) {
+          max-width: 175px;
+          padding: 10px 20px 25px;
+        }
+      }
+
+      ${LeftBarOutsideSpace} {
+        position: absolute;
+        top: -40px;
+        right: -40px;
+        left: 0;
+        bottom: 0;
+        z-index: 12;
+
+        @media (max-width: 475px) {
+          right: -10px;
+        }
+      }
+  `}
+`;
+
+const LeftBarOutsideSpace = styled.div``;
+
+const LeftBarContainer = styled.div`
+  max-width: 188px;
 `;
 
 const GeneralUIContainer = styled.div`
@@ -96,7 +189,6 @@ const TitleDishesWrapper = styled.div`
 
 const ShowNewsPopupContainer = styled.div`
   position: relative;
-  text-align: right;
   display: none;
   margin-top: -80px;
 
@@ -151,7 +243,7 @@ const ShowNewsTitle = styled.p`
 
   @media (max-width: 740px) {
     font-size: 12px;
-    margin: 0 5px 0 0;
+    margin: 0 -22px 0 0;
   }
 `;
 
@@ -177,96 +269,69 @@ const BasketInPromotionWrap = styled.div`
   }
 `;
 
+const PromotionOutsideSpace = styled.div``;
+
+const PromotionWrapper = styled.div`
+  @media (max-width: 1410px) {
+    ${(props) =>
+      props.isNewsCheckboxChecked &&
+      `
+      ${PromotionOutsideSpace} {
+        position: absolute;
+        top: -40px;
+        right: 0;
+        left: -233px;
+        bottom: -40px;
+        z-index: 5;
+      }
+
+      ${PromotionContainer}{
+        display: block;
+        position: absolute;
+        top: 54px;
+        right: 51px;
+        background-color: rgb(234,241,254);
+        z-index: 5;
+        box-shadow: 0px 3px 20px 6px rgba(0,0,0,0.75);
+        border-radius: 15px;
+        padding: 0 25px 20px;
+
+        animation-name: "news";
+        animation-duration: 800ms;
+        transition-timing-function: ease-in-out;
+
+        @media (max-width: 740px) {
+          top: 43px;
+          right: 19px;
+        }
+
+        @media (max-width: 580px) {
+          top: 10px;
+          right: 0;
+        }
+
+        @keyframes news {
+          0% {
+            transform: translateX(500px);
+            opacity: 0;
+          }
+          100% {
+            transform: translateX(0);
+            opacity: 1;
+          }
+        }
+      }
+    `}
+  }
+`;
 const PromotionContainer = styled.div`
   max-width: 259px;
 
   @media (max-width: 1410px) {
     display: none;
-
-    ${(props) =>
-      props.isNewsCheckboxChecked &&
-      `
-      display: block;
-      position: absolute;
-      top: 54px;
-      right: 51px;
-      background-color: #fff;
-      z-index: 5;
-      box-shadow: 0px 3px 20px 6px rgba(0,0,0,0.75);
-      border-radius: 15px;
-      padding: 0 25px 20px;
-
-      animation-name: "news";
-      animation-duration: 800ms;
-      transition-timing-function: ease-in-out;
-
-      @media (max-width: 740px) {
-        top: 43px;
-        right: 19px;
-      }
-
-      @media (max-width: 580px) {
-        top: 10px;
-        right: 0;
-      }
-
-      @keyframes news {
-        0% {
-          transform: translateX(500px);
-          opacity: 0;
-        }
-        100% {
-          transform: translateX(0);
-          opacity: 1;
-        }
   }
-  `}
+
+  @media (max-width: 475px) {
+    max-width: 230px;
   }
 `;
-
-export const GeneralPage = () => {
-  const [isNewsCheckboxChecked, setIsNewsCheckboxChecked] = useState(false);
-  const [isBurgerCheckboxChecked, setIsBurgerCheckboxChecked] = useState(false);
-
-  return (
-    <GeneralPageFlexWrapper>
-      <LeftBarContainer isBurgerCheckboxChecked={isBurgerCheckboxChecked}>
-        <Avatar />
-        <Menu />
-        <SignOutFromApp />
-        <FasterDelivery />
-      </LeftBarContainer>
-      <GeneralUIContainer>
-        <MenuDishesContainer>
-          <BurgerMenuBtn
-            isBurgerCheckboxChecked={isBurgerCheckboxChecked}
-            setIsBurgerCheckboxChecked={setIsBurgerCheckboxChecked}
-          />
-          <TitleDishesWrapper>
-            <Title />
-            <ShowNewsPopupContainer>
-              <ShowNewsBtnContainer>
-                <ShowNewsTitle>Press! See more news</ShowNewsTitle>
-                <PopupNewsBtn
-                  setIsNewsCheckboxChecked={setIsNewsCheckboxChecked}
-                  isNewsCheckboxChecked={isNewsCheckboxChecked}
-                  animateIcon={showNewsIcon}
-                />
-              </ShowNewsBtnContainer>
-              <BasketAndSearch />
-            </ShowNewsPopupContainer>
-          </TitleDishesWrapper>
-          <MenuDishes />
-          <DishesItems />
-        </MenuDishesContainer>
-        <PromotionContainer isNewsCheckboxChecked={isNewsCheckboxChecked}>
-          <BasketInPromotionWrap>
-            <BasketAndSearch />
-          </BasketInPromotionWrap>
-          <Promotion />
-          <News />
-        </PromotionContainer>
-      </GeneralUIContainer>
-    </GeneralPageFlexWrapper>
-  );
-};

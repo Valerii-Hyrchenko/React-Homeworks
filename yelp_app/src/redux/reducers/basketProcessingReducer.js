@@ -1,6 +1,6 @@
-import { SELECTED_DISHES_IN_BASKET } from "./types";
-import { CHANGE_QUANTITY_DISHES } from "./types";
-import { CLEAR_BASKET } from "./types";
+import { SELECTED_DISHES_IN_BASKET } from "../types";
+import { CHANGE_QUANTITY_DISHES } from "../types";
+import { CLEAR_BASKET } from "../types";
 
 const initialState = {
   selectedDishes: [],

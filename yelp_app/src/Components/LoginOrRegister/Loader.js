@@ -2,15 +2,28 @@ import styled from "styled-components";
 import flyingBurger from "../../assets/img/burger_fly/burger_fly.svg";
 import grapes from "../../assets/img/images_for_design/grapes.svg";
 
+export const Loader = () => {
+  return (
+    <LoaderWrapper>
+      <ImagesWrapper>
+        <FlyingBurgerImg src={flyingBurger} alt="flying-burger-img" />
+        <GrapesImg src={grapes} alt="grapes-img" />
+      </ImagesWrapper>
+      <LoaderTitle>Yelp App</LoaderTitle>
+      <LoaderText>developed by Valerii Hyrchenko</LoaderText>
+    </LoaderWrapper>
+  );
+};
+
 const LoaderWrapper = styled.div`
   position: relative;
   max-width: 750px;
   margin: 0 auto;
-  padding: 307px 0 339px;
+  padding-top: 270px;
+  height: 50vh;
 
-  @media (max-width: 850px) {
+  @media (max-width: 870px) {
     max-width: 380px;
-    padding: 290px 0 250px;
   }
 
   @media (max-width: 550px) {
@@ -23,7 +36,7 @@ const LoaderTitle = styled.h2`
   font-size: 72px;
   text-align: center;
 
-  @media (max-width: 850px) {
+  @media (max-width: 870px) {
     font-size: 56px;
   }
 
@@ -55,43 +68,43 @@ const ImagesWrapper = styled.div`
 
 const FlyingBurgerImg = styled.img`
   position: absolute;
-  top: 35px;
+  top: 30px;
   right: 7px;
 
-  @media (max-width: 850px) {
+  @media (max-width: 870px) {
     max-width: 250px;
-    top: 123px;
+    top: 94px;
     right: -83px;
   }
 
-  @media (max-width: 550px) {
-    right: -70px;
+  @media (max-width: 580px) {
+    right: -45px;
+    top: 80px;
   }
 
-  @media (max-width: 440px) {
-    top: 105px;
+  @media (max-width: 410px) {
     right: -10px;
   }
 `;
 
 const GrapesImg = styled.img`
   position: absolute;
-  bottom: 160px;
+  bottom: 60px;
   left: 40px;
 
-  @media (max-width: 850px) {
+  @media (max-width: 870px) {
     max-width: 168px;
-    bottom: 108px;
-    left: -43px;
+    bottom: 90px;
+    left: -76px;
   }
 
-  @media (max-width: 550px) {
-    left: -13px;
-    bottom: 100px;
+  @media (max-width: 580px) {
+    left: -33px;
+    bottom: 61px;
   }
 
-  @media (max-width: 440px) {
-    left: 25px;
+  @media (max-width: 360px) {
+    left: 0;
   }
 `;
 
@@ -111,16 +124,3 @@ const LoaderText = styled.p`
     font-size: 16px;
   }
 `;
-
-export const Loader = () => {
-  return (
-    <LoaderWrapper>
-      <ImagesWrapper>
-        <FlyingBurgerImg src={flyingBurger} alt="flying-burger-img" />
-        <GrapesImg src={grapes} alt="grapes-img" />
-      </ImagesWrapper>
-      <LoaderTitle>Yelp App</LoaderTitle>
-      <LoaderText>developed by Valerii Hyrchenko</LoaderText>
-    </LoaderWrapper>
-  );
-};

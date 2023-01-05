@@ -4,6 +4,17 @@ import leaf from "../../assets/img/images_for_design/leaf.svg";
 import grapes from "../../assets/img/images_for_design/grapes.svg";
 import styled from "styled-components";
 
+export const ImagesForDesign = () => {
+  return (
+    <ImagesWrapper>
+      <Grapes src={grapes} alt="grapes-img" />
+      <Leaf src={leaf} alt="leaf-img" />
+      <YellowApple src={yellowAppleImg} alt="yellow-apple-img" />
+      <RedApple src={redAppleImg} alt="red-appleI-img" />
+    </ImagesWrapper>
+  );
+};
+
 const ImagesWrapper = styled.div`
   position: absolute;
   top: 0;
@@ -22,16 +33,11 @@ const RedApple = styled.img`
   }
 
   @media (max-width: 740px) {
-    left: -20px;
-    bottom: -40px;
+    left: -47px;
+    bottom: -27px;
   }
 
   @media (max-width: 580px) {
-    max-width: 80px;
-    left: -24px;
-  }
-
-  @media (max-width: 475px) {
     display: none;
   }
 `;
@@ -51,18 +57,12 @@ const YellowApple = styled.img`
   }
 
   @media (max-width: 740px) {
-    right: -37px;
-    bottom: -36px;
-    max-width: 128px;
+    right: -45px;
+    bottom: -10px;
+    max-width: 108px;
   }
 
   @media (max-width: 580px) {
-    max-width: 110px;
-    bottom: -30px;
-    right: -15px;
-  }
-
-  @media (max-width: 475px) {
     display: none;
   }
 `;
@@ -78,6 +78,10 @@ const Leaf = styled.img`
 
   @media (max-width: 1080px) {
     max-width: 150px;
+  }
+
+  @media (max-width: 740px) {
+    max-width: 120px;
   }
 
   @media (max-width: 580px) {
@@ -132,14 +136,3 @@ const Grapes = styled.img`
     left: -9px;
   }
 `;
-
-export const ImagesForDesign = () => {
-  return (
-    <ImagesWrapper>
-      <Grapes src={grapes} alt="grapes-img" />
-      <Leaf src={leaf} alt="leaf-img" />
-      <YellowApple src={yellowAppleImg} alt="yellow-apple-img" />
-      <RedApple src={redAppleImg} alt="red-appleI-img" />
-    </ImagesWrapper>
-  );
-};

@@ -2,6 +2,40 @@ import styled from "styled-components";
 import arrow from "../../assets/img/delivery/arrow.svg";
 import { newsConfig } from "../allConfigsConst";
 
+export const News = () => {
+  return (
+    <NewsContainer>
+      <TitleFlexContainer>
+        <NewsTitle>Articles</NewsTitle>
+        <ArrowWrapper>
+          <ArrowImg src={arrow} alt="arrow_img" />
+        </ArrowWrapper>
+      </TitleFlexContainer>
+      {newsConfig.map(
+        ({ id, icon, background, title, miniAva, miniLike, likeCount }) => (
+          <ItemFlexContainer key={id}>
+            <ItemAvaWrap background={background}>
+              <ItemIcon src={icon} alt="news-icon" />
+            </ItemAvaWrap>
+            <ItemContentWrap>
+              <ItemTitle>{title}</ItemTitle>
+              <ItemReactionWrap>
+                {miniAva.map(({ id, miniAva }) => (
+                  <ItemReactionIcon key={id} src={miniAva} alt="mini-ava" />
+                ))}
+                <ItemLikeContainer>
+                  <ItemReactionIcon src={miniLike} alt="mini-like" />
+                  <ItemLikeCount>{likeCount}+</ItemLikeCount>
+                </ItemLikeContainer>
+              </ItemReactionWrap>
+            </ItemContentWrap>
+          </ItemFlexContainer>
+        )
+      )}
+    </NewsContainer>
+  );
+};
+
 const NewsContainer = styled.div`
   margin-top: 30px;
 `;
@@ -57,6 +91,11 @@ const ItemTitle = styled.p`
   font-weight: 700;
   font-size: 12px;
   line-height: 18px;
+
+  @media (max-width: 480px) {
+    font-size: 10px;
+    line-height: 16px;
+  }
 `;
 
 const ItemReactionWrap = styled.div`
@@ -85,37 +124,3 @@ const ItemLikeCount = styled.p`
   font-weight: 500;
   font-size: 10px;
 `;
-
-export const News = () => {
-  return (
-    <NewsContainer>
-      <TitleFlexContainer>
-        <NewsTitle>Articles</NewsTitle>
-        <ArrowWrapper>
-          <ArrowImg src={arrow} alt="arrow_img" />
-        </ArrowWrapper>
-      </TitleFlexContainer>
-      {newsConfig.map(
-        ({ id, icon, background, title, miniAva, miniLike, likeCount }) => (
-          <ItemFlexContainer key={id}>
-            <ItemAvaWrap background={background}>
-              <ItemIcon src={icon} alt="news-icon" />
-            </ItemAvaWrap>
-            <ItemContentWrap>
-              <ItemTitle>{title}</ItemTitle>
-              <ItemReactionWrap>
-                {miniAva.map(({ id, miniAva }) => (
-                  <ItemReactionIcon key={id} src={miniAva} alt="mini-ava" />
-                ))}
-                <ItemLikeContainer>
-                  <ItemReactionIcon src={miniLike} alt="mini-like" />
-                  <ItemLikeCount>{likeCount}+</ItemLikeCount>
-                </ItemLikeContainer>
-              </ItemReactionWrap>
-            </ItemContentWrap>
-          </ItemFlexContainer>
-        )
-      )}
-    </NewsContainer>
-  );
-};

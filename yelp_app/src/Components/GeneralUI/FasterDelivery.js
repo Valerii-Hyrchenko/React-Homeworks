@@ -2,6 +2,21 @@ import styled from "styled-components";
 import man from "../../assets/img/delivery/delivery-man.svg";
 import arrow from "../../assets/img/delivery/arrow.svg";
 
+export const FasterDelivery = () => {
+  return (
+    <DeliveryWrap>
+      <DeliveryManImg src={man} alt="delivery-man" />
+      <ContentContainer>
+        <Title>Faster delivery!</Title>
+        <FlexContainer>
+          <Text>Know More</Text>
+          <Arrow src={arrow} alt="delivery-arrow" />
+        </FlexContainer>
+      </ContentContainer>
+    </DeliveryWrap>
+  );
+};
+
 const DeliveryWrap = styled.div`
   max-width: 184px;
   position: relative;
@@ -50,18 +65,3 @@ const Text = styled.p`
 `;
 
 const Arrow = styled.img``;
-
-export const FasterDelivery = () => {
-  return (
-    <DeliveryWrap>
-      <DeliveryManImg src={man} alt="delivery-man" />
-      <ContentContainer>
-        <Title>Faster delivery!</Title>
-        <FlexContainer>
-          <Text>Know More</Text>
-          <Arrow src={arrow} alt="delivery-arrow" />
-        </FlexContainer>
-      </ContentContainer>
-    </DeliveryWrap>
-  );
-};

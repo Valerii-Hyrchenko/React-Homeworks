@@ -1,5 +1,5 @@
-import { SHOW_BASKET } from "./types";
-import { HIDE_BASKET } from "./types";
+import { SHOW_BASKET } from "../types";
+import { HIDE_BASKET } from "../types";
 
 const initialValue = {
   isShow: false,

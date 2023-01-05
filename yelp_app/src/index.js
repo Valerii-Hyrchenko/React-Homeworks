@@ -9,14 +9,13 @@ import {
   legacy_createStore as createStore,
   applyMiddleware,
 } from "redux";
-import { rootReducer } from "./redux/rootReducer";
+import { rootReducer } from "./redux/reducers/rootReducer";
+
+const composeEnhancers = window.REDUX_DEVTOOLS_EXTENSION_COMPOSE || compose;
 
 const store = createStore(
   rootReducer,
-  compose(
-    applyMiddleware(thunk),
-    window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
-  )
+  composeEnhancers(applyMiddleware(thunk))
 );
 
 const root = ReactDOM.createRoot(document.getElementById("root"));

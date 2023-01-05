@@ -5,10 +5,57 @@ import basketIcon from "../../assets/icons/basket/basket-icon.svg";
 import { showBasket } from "../../redux/actions";
 import { useDispatch, useSelector } from "react-redux";
 
+export const BasketAndSearch = () => {
+  const dispatch = useDispatch();
+  const isBasketShow = useSelector((state) => state.isBasketShow.isShow);
+  const selectedDishes = useSelector(
+    (state) => state.basketProcessing.selectedDishes
+  );
+
+  return (
+    <BasketFlexContainer>
+      <SearchWrapper>
+        <SearchImg src={searchIcon} alt="search-icon" />
+      </SearchWrapper>
+      <BasketWrapper onClick={() => dispatch(showBasket())}>
+        {selectedDishes.length > 0 ? (
+          <DishesCounterWrap>
+            <DishesCounter>{selectedDishes.length}</DishesCounter>
+          </DishesCounterWrap>
+        ) : null}
+        <BasketImg src={basketIcon} alt="basket-icon" />
+      </BasketWrapper>
+      <BasketProcessingWrapper>
+        {isBasketShow ? <BasketProcessing /> : null}
+      </BasketProcessingWrapper>
+    </BasketFlexContainer>
+  );
+};
+
 const BasketFlexContainer = styled.div`
   display: flex;
   justify-content: flex-end;
   position: relative;
+`;
+const BasketProcessingWrapper = styled.div`
+  position: absolute;
+  z-index: 10;
+  top: -45px;
+  right: 258px;
+
+  @media (max-width: 1410px) {
+    top: -125px;
+  }
+
+  @media (max-width: 740px) {
+    top: -94px;
+    right: 282px;
+  }
+
+  @media (max-width: 580px) {
+    top: -61px;
+    right: 301px;
+  }
 `;
 
 const SearchWrapper = styled.div`
@@ -36,6 +83,7 @@ const BasketWrapper = styled.div`
   background: #666666;
   border-radius: 15px;
   cursor: pointer;
+  position: relative;
 
   @media (max-width: 740px) {
     padding: 12px;
@@ -49,19 +97,32 @@ const BasketImg = styled.img`
   }
 `;
 
-export const BasketAndSearch = () => {
-  const dispatch = useDispatch();
-  const isBasketShow = useSelector((state) => state.isBasketShow.isShow);
+const DishesCounterWrap = styled.div`
+  position: absolute;
+  top: 5px;
+  left: 5px;
+  width: 19px;
+  height: 19px;
+  border-radius: 50%;
+  background-color: red;
 
-  return (
-    <BasketFlexContainer>
-      <SearchWrapper>
-        <SearchImg src={searchIcon} alt="search-icon" />
-      </SearchWrapper>
-      <BasketWrapper onClick={() => dispatch(showBasket())}>
-        <BasketImg src={basketIcon} alt="basket-icon" />
-      </BasketWrapper>
-      {isBasketShow ? <BasketProcessing /> : null}
-    </BasketFlexContainer>
-  );
-};
+  @media (max-width: 740px) {
+    width: 15px;
+    height: 15px;
+  }
+`;
+
+const DishesCounter = styled.p`
+  position: absolute;
+  top: 55%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 10px;
+  color: #fff;
+  font-weight: 900;
+  line-height: 0;
+
+  @media (max-width: 740px) {
+    font-size: 8px;
+  }
+`;

@@ -2,6 +2,43 @@ import { useDispatch, useSelector } from "react-redux";
 import { clearErrorMessage, clearSuccessMessage } from "../../redux/actions";
 import styled from "styled-components";
 
+export const ModalMessages = () => {
+  const authError = useSelector((state) => state.currentAuthUser.authError);
+  const successRegister = useSelector(
+    (state) => state.currentAuthUser.currentRegisterUser
+  );
+
+  const dispatch = useDispatch();
+  return (
+    <div>
+      {authError ? (
+        <ModalWindowContainer>
+          <ErrorMessage>
+            <p>There was an error:</p>
+            <p>{authError}</p>
+            <p>Try again!</p>
+          </ErrorMessage>
+          <AgreeButtonWrapper>
+            <AgreeButton onClick={() => dispatch(clearErrorMessage())}>
+              OK
+            </AgreeButton>
+          </AgreeButtonWrapper>
+        </ModalWindowContainer>
+      ) : null}
+      {successRegister ? (
+        <ModalWindowContainer>
+          <p>Successful registration! Now you need to log into your account.</p>
+          <AgreeButtonWrapper>
+            <AgreeButton onClick={() => dispatch(clearSuccessMessage())}>
+              OK
+            </AgreeButton>
+          </AgreeButtonWrapper>
+        </ModalWindowContainer>
+      ) : null}
+    </div>
+  );
+};
+
 const ModalWindowContainer = styled.div`
   position: absolute;
   top: 50%;
@@ -48,40 +85,3 @@ const AgreeButton = styled.button`
     transition: all 350ms linear;
   }
 `;
-
-export const ModalMessages = () => {
-  const authError = useSelector((state) => state.currentAuthUser.authError);
-  const successRegister = useSelector(
-    (state) => state.currentAuthUser.currentRegisterUser
-  );
-
-  const dispatch = useDispatch();
-  return (
-    <div>
-      {authError ? (
-        <ModalWindowContainer>
-          <ErrorMessage>
-            <p>There was an error:</p>
-            <p>{authError}</p>
-            <p>Try again!</p>
-          </ErrorMessage>
-          <AgreeButtonWrapper>
-            <AgreeButton onClick={() => dispatch(clearErrorMessage())}>
-              OK
-            </AgreeButton>
-          </AgreeButtonWrapper>
-        </ModalWindowContainer>
-      ) : null}
-      {successRegister ? (
-        <ModalWindowContainer>
-          <p>Successful registration! Now you need to log into your account.</p>
-          <AgreeButtonWrapper>
-            <AgreeButton onClick={() => dispatch(clearSuccessMessage())}>
-              OK
-            </AgreeButton>
-          </AgreeButtonWrapper>
-        </ModalWindowContainer>
-      ) : null}
-    </div>
-  );
-};

@@ -3,15 +3,6 @@ import { PageTitle } from "../Components/LoginOrRegister/PageTitle";
 import { Form } from "../Components/LoginOrRegister/Form";
 import styled from "styled-components";
 
-const LoginContentContainer = styled.div`
-  padding: 48px 0 195px;
-  position: relative;
-
-  @media (max-width: 950px) {
-    padding: 48px 0 105px;
-  }
-`;
-
 export const LoginPage = () => {
   return (
     <LoginContentContainer>
@@ -21,3 +12,20 @@ export const LoginPage = () => {
     </LoginContentContainer>
   );
 };
+
+const LoginContentContainer = styled.div`
+  height: 86vh;
+  position: relative;
+
+  @media (max-width: 1410px) {
+    height: 89vh;
+  }
+
+  @media (max-width: 475px) {
+    height: 95vh;
+  }
+
+  @media (max-width: 360px) {
+    height: 97vh;
+  }
+`;

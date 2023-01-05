@@ -1,6 +1,17 @@
 import styled from "styled-components";
 import emoji from "../../assets/img/emoji/emoji-title.svg";
 
+export const Title = () => {
+  return (
+    <TitleContainer>
+      <TitleUI>
+        Welcome To Lucknow
+        <EmojiImg src={emoji} alt="title-emoji" />
+      </TitleUI>
+    </TitleContainer>
+  );
+};
+
 const TitleContainer = styled.div`
   margin-bottom: 30px;
 `;
@@ -51,14 +62,3 @@ const EmojiImg = styled.img`
     width: 40px;
   }
 `;
-
-export const Title = () => {
-  return (
-    <TitleContainer>
-      <TitleUI>
-        Welcome To Lucknow
-        <EmojiImg src={emoji} alt="title-emoji" />
-      </TitleUI>
-    </TitleContainer>
-  );
-};

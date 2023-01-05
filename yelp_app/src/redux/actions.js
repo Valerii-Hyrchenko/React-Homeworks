@@ -5,6 +5,8 @@ import { LOGIN_USER } from "./types";
 import { SHOW_LOADER } from "./types";
 import { HIDE_LOADER } from "./types";
 import { SHOW_BASKET } from "./types";
+import { FIRST_TIME_BASKET_SHOW } from "./types";
+import { FIRST_TIME_BASKET_HIDE } from "./types";
 import { HIDE_BASKET } from "./types";
 import { CLEAR_BASKET } from "./types";
 import { SELECTED_DISHES_IN_BASKET } from "./types";
@@ -40,6 +42,18 @@ export const showBasket = () => {
 export const hideBasket = () => {
   return {
     type: HIDE_BASKET,
+  };
+};
+
+export const firstTimeShowBasket = () => {
+  return {
+    type: FIRST_TIME_BASKET_SHOW,
+  };
+};
+
+export const firstTimeHideBasket = () => {
+  return {
+    type: FIRST_TIME_BASKET_HIDE,
   };
 };
 

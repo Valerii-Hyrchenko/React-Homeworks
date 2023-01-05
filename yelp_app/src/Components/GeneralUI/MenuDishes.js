@@ -4,6 +4,29 @@ import { useDispatch } from "react-redux";
 import { selectGroup } from "../../redux/actions";
 import { menuDishesConfig } from "../allConfigsConst";
 
+export const MenuDishes = () => {
+  const [activeDishGroup, setActiveDishGroup] = useState(menuDishesConfig[0]); //передай в компонент DishesItems
+  const dispatch = useDispatch();
+  const handleChangeActiveDish = (item) => {
+    setActiveDishGroup(item);
+    dispatch(selectGroup(item.title));
+  };
+  return (
+    <MenuDishesWrapper>
+      {menuDishesConfig.map((item) => (
+        <DishContainer
+          key={item.id}
+          onClick={() => handleChangeActiveDish(item)}
+          active={item.id === activeDishGroup.id}
+        >
+          <DishImg src={item.img} alt={`${item.title}-img`} />
+          <DishTitle>{item.title}</DishTitle>
+        </DishContainer>
+      ))}
+    </MenuDishesWrapper>
+  );
+};
+
 const MenuDishesWrapper = styled.div`
   display: flex;
   justify-content: space-between;
@@ -85,7 +108,7 @@ const DishImg = styled.img`
 const DishTitle = styled.p`
   position: absolute;
   bottom: 13%;
-  left: 55%;
+  left: 50%;
   transform: translate(-50%, -50%);
   font-weight: 500;
   font-size: 14px;
@@ -100,26 +123,3 @@ const DishTitle = styled.p`
     left: 63%;
   }
 `;
-
-export const MenuDishes = () => {
-  const [activeDishGroup, setActiveDishGroup] = useState(menuDishesConfig[0]); //передай в компонент DishesItems
-  const dispatch = useDispatch();
-  const handleChangeActiveDish = (item) => {
-    setActiveDishGroup(item);
-    dispatch(selectGroup(item.title));
-  };
-  return (
-    <MenuDishesWrapper>
-      {menuDishesConfig.map((item) => (
-        <DishContainer
-          key={item.id}
-          onClick={() => handleChangeActiveDish(item)}
-          active={item.id === activeDishGroup.id}
-        >
-          <DishImg src={item.img} alt={`${item.title}-img`} />
-          <DishTitle>{item.title}</DishTitle>
-        </DishContainer>
-      ))}
-    </MenuDishesWrapper>
-  );
-};

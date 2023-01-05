@@ -1,4 +1,28 @@
 import styled from "styled-components";
+import showNewsIcon from "../../assets/icons/show_news/show_news.svg";
+
+export const PopupNewsBtn = ({
+  isNewsCheckboxChecked,
+  setIsNewsCheckboxChecked,
+}) => {
+  const handleCheckboxSwitch = () => setIsNewsCheckboxChecked((prev) => !prev);
+
+  return (
+    <PopupNewsWrapper>
+      <PopupNewsCheckbox
+        onChange={handleCheckboxSwitch}
+        id="news-popup"
+        type="checkbox"
+        checked={isNewsCheckboxChecked}
+      />
+      <PopupAnimateWrap isNewsCheckboxChecked={isNewsCheckboxChecked}>
+        <PopupAnimateElem />
+        <PopupAnimateIcon src={showNewsIcon} alt="news-icon" />
+        <PopupAnimateElem position="bottom" />
+      </PopupAnimateWrap>
+    </PopupNewsWrapper>
+  );
+};
 
 const PopupNewsWrapper = styled.div`
   width: 46px;
@@ -30,7 +54,6 @@ const PopupAnimateWrap = styled.div`
     props.isNewsCheckboxChecked &&
     `${PopupAnimateElem} {
         opacity: 1;
-        box-shadow: rgba(0, 0, 0, 1) 0px 5px 15px;
         background-color: #2d9cdb;
 
         &:first-of-type {
@@ -73,27 +96,3 @@ const PopupAnimateIcon = styled.img`
     width: 35px;
   }
 `;
-
-export const PopupNewsBtn = ({
-  isNewsCheckboxChecked,
-  setIsNewsCheckboxChecked,
-  animateIcon,
-}) => {
-  const handleCheckboxSwitch = () => setIsNewsCheckboxChecked((prev) => !prev);
-
-  return (
-    <PopupNewsWrapper>
-      <PopupNewsCheckbox
-        onChange={handleCheckboxSwitch}
-        id="news-popup"
-        type="checkbox"
-        checked={isNewsCheckboxChecked}
-      />
-      <PopupAnimateWrap isNewsCheckboxChecked={isNewsCheckboxChecked}>
-        <PopupAnimateElem />
-        <PopupAnimateIcon src={animateIcon} alt="news-icon" />
-        <PopupAnimateElem position="bottom" />
-      </PopupAnimateWrap>
-    </PopupNewsWrapper>
-  );
-};

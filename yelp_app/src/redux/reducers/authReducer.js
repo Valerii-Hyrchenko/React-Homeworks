@@ -1,4 +1,4 @@
-import { AUTH_ERROR, LOGIN_USER, REGISTER_USER, SIGN_OUT_USER } from "./types";
+import { AUTH_ERROR, LOGIN_USER, REGISTER_USER, SIGN_OUT_USER } from "../types";
 
 const getUserFromLocalStorage = () => {
   if (localStorage.getItem("authUser"))

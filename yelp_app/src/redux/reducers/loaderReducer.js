@@ -1,5 +1,5 @@
-import { SHOW_LOADER } from "./types";
-import { HIDE_LOADER } from "./types";
+import { SHOW_LOADER } from "../types";
+import { HIDE_LOADER } from "../types";
 
 const initialValue = {
   loading: false,

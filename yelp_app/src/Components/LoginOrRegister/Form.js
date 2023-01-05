@@ -11,6 +11,76 @@ import { useDispatch } from "react-redux";
 import { useNav } from "../../hooks/useNav";
 import { ModalMessages } from "./ModalMessages";
 
+export const Form = ({ pageType }) => {
+  let currentSchemeValid = pageType === "login" ? loginScheme : registerScheme;
+  let currentInputConfig =
+    pageType === "login" ? loginPageConfig : registerPageConfig;
+  let currentInitialValues =
+    pageType === "login"
+      ? {
+          login: "",
+          password: "",
+        }
+      : {
+          name: "",
+          password: "",
+          confirmPassword: "",
+        };
+  let getCurrentDispatch = () =>
+    pageType === "login" ? loginUser(values) : registerUser(values);
+
+  const dispatch = useDispatch();
+  const { goTo } = useNav();
+  const { handleSubmit, handleChange, values, touched, errors, handleBlur } =
+    useFormik({
+      initialValues: currentInitialValues,
+      validationSchema: currentSchemeValid,
+      onSubmit: (values, { resetForm }) => {
+        dispatch(getCurrentDispatch());
+        resetForm(values);
+        goTo("/login");
+      },
+    });
+
+  return (
+    <FormWrapper>
+      <FormForPage onSubmit={handleSubmit}>
+        {currentInputConfig.map(({ id, label, placeholder, name, type }) => (
+          <InputWrapper key={id}>
+            <Label htmlFor={id}>
+              {label}
+              {touched[name] && errors[name] ? (
+                <ErrorMessage>Error: {errors[name]}</ErrorMessage>
+              ) : null}
+            </Label>
+            <InputForPage
+              onChange={handleChange}
+              onBlur={handleBlur}
+              value={values[name]}
+              name={name}
+              id={id}
+              type={type}
+              placeholder={placeholder}
+              autoComplete="off"
+            />
+          </InputWrapper>
+        ))}
+        <Button config={pageType === "login" ? "Login" : "Register"} />
+        {pageType === "login" ? (
+          <Link style={linkStyle} to="/register">
+            I don't have an account
+          </Link>
+        ) : (
+          <Link style={linkStyle} to="/login">
+            Back to login page
+          </Link>
+        )}
+      </FormForPage>
+      <ModalMessages />
+    </FormWrapper>
+  );
+};
+
 const linkStyle = {
   display: "block",
   width: "150px",
@@ -32,17 +102,26 @@ const FormWrapper = styled.div`
   position: relative;
   z-index: 5;
 
+  @media (max-width: 1410px) {
+    padding: 60px 80px 45px;
+  }
+
+  @media (max-width: 1300px) {
+    padding: 45px 65px 35px;
+    margin-top: 5px;
+    max-width: 360px;
+  }
+
   @media (max-width: 950px) {
-    padding: 57px 65px 45px;
     max-width: 300px;
   }
 
   @media (max-width: 550px) {
-    padding: 45px 35px 35px;
+    padding: 45px 35px 30px;
     max-width: 250px;
   }
   @media (max-width: 380px) {
-    padding: 45px 30px 35px;
+    padding: 45px 30px 30px;
   }
 `;
 
@@ -50,6 +129,10 @@ const FormForPage = styled.form``;
 
 const InputWrapper = styled.div`
   margin-bottom: 16px;
+
+  @media (max-width: 1300px) {
+    margin-bottom: 12px;
+  }
 `;
 
 const InputForPage = styled.input`
@@ -71,6 +154,10 @@ const InputForPage = styled.input`
     color: #cc9696;
   }
 
+  @media (max-width: 1300px) {
+    padding: 13px 10px 13px 10px;
+  }
+
   @media (max-width: 950px) {
     padding: 12px 8px 12px 9px;
     font-size: 14px;
@@ -86,10 +173,10 @@ const Label = styled.label`
 
 const ErrorMessage = styled.p`
   color: #fff;
-  padding: 5px;
+  padding: 2px;
   border-radius: 3px;
   background: red;
-  font-size: 12px;
+  font-size: 10px;
   font-weight: 700;
 `;
 
@@ -175,73 +262,3 @@ const registerScheme = Yup.object().shape({
 //     ["confirmPassword", "confirmPassword"],
 //   ]
 // );
-
-export const Form = ({ pageType }) => {
-  let currentSchemeValid = pageType === "login" ? loginScheme : registerScheme;
-  let currentInputConfig =
-    pageType === "login" ? loginPageConfig : registerPageConfig;
-  let currentInitialValues =
-    pageType === "login"
-      ? {
-          login: "",
-          password: "",
-        }
-      : {
-          name: "",
-          password: "",
-          confirmPassword: "",
-        };
-  let getCurrentDispatch = () =>
-    pageType === "login" ? loginUser(values) : registerUser(values);
-
-  const dispatch = useDispatch();
-  const { goTo } = useNav();
-  const { handleSubmit, handleChange, values, touched, errors, handleBlur } =
-    useFormik({
-      initialValues: currentInitialValues,
-      validationSchema: currentSchemeValid,
-      onSubmit: (values, { resetForm }) => {
-        dispatch(getCurrentDispatch());
-        resetForm(values);
-        goTo("/login");
-      },
-    });
-
-  return (
-    <FormWrapper>
-      <FormForPage onSubmit={handleSubmit}>
-        {currentInputConfig.map(({ id, label, placeholder, name, type }) => (
-          <InputWrapper key={id}>
-            <Label htmlFor={id}>
-              {label}
-              {touched[name] && errors[name] ? (
-                <ErrorMessage>Error: {errors[name]}</ErrorMessage>
-              ) : null}
-            </Label>
-            <InputForPage
-              onChange={handleChange}
-              onBlur={handleBlur}
-              value={values[name]}
-              name={name}
-              id={id}
-              type={type}
-              placeholder={placeholder}
-              autoComplete="off"
-            />
-          </InputWrapper>
-        ))}
-        <Button config={pageType === "login" ? "Login" : "Register"} />
-        {pageType === "login" ? (
-          <Link style={linkStyle} to="/register">
-            I don't have an account
-          </Link>
-        ) : (
-          <Link style={linkStyle} to="/login">
-            Back to login page
-          </Link>
-        )}
-      </FormForPage>
-      <ModalMessages />
-    </FormWrapper>
-  );
-};

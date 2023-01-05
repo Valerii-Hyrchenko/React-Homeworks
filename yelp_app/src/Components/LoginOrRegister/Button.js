@@ -1,12 +1,16 @@
 import styled from "styled-components";
 
-const ButtonWrapper = styled.div`
-  margin-top: 37px;
-  text-align: center;
+export const Button = ({ config }) => {
+  return (
+    <ButtonWrapper>
+      <ButtonForPage type="submit">{config}</ButtonForPage>
+    </ButtonWrapper>
+  );
+};
 
-  @media (max-width: 550px) {
-    margin-top: 25px;
-  }
+const ButtonWrapper = styled.div`
+  margin-top: 25px;
+  text-align: center;
 `;
 
 const ButtonForPage = styled.button`
@@ -35,11 +39,3 @@ const ButtonForPage = styled.button`
     padding: 12px 0;
   }
 `;
-
-export const Button = ({ config }) => {
-  return (
-    <ButtonWrapper>
-      <ButtonForPage type="submit">{config}</ButtonForPage>
-    </ButtonWrapper>
-  );
-};

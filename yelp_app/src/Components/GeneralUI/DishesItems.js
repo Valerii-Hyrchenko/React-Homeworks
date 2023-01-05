@@ -1,16 +1,85 @@
 import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 import { dishesConfig } from "../allConfigsConst";
-import { showBasket, updateBasket } from "../../redux/actions";
+import {
+  showBasket,
+  updateBasket,
+  firstTimeShowBasket,
+} from "../../redux/actions";
 import settingsImg from "../../assets/img/dishes_items/settings-img.svg";
 
 import addDishImg from "../../assets/img/dishes_items/add_dish.svg";
 import chosenDishImg from "../../assets/img/dishes_items/chosen_dish.svg";
+import { useEffect } from "react";
+
+export const DishesItems = () => {
+  const dispatch = useDispatch();
+  const selectedDishesGroup = useSelector((state) => state.activeDishGroup);
+  const isFirstBasketShow = useSelector(
+    (state) => state.isFirsTimeBasketShow.isFirstShow
+  );
+  const selectedDishes = useSelector(
+    (state) => state.basketProcessing.selectedDishes
+  );
+  const changeDish = (item) => dispatch(updateBasket(item));
+  const getCurrentDishesArr = (activeDishGroup) => {
+    if (activeDishGroup === "All") {
+      return dishesConfig;
+    } else {
+      return dishesConfig.filter((item) => item.group === activeDishGroup);
+    }
+  };
+
+  useEffect(() => {
+    if (isFirstBasketShow && selectedDishes.length === 1) {
+      dispatch(showBasket());
+    }
+    if (selectedDishes.length === 0) {
+      dispatch(firstTimeShowBasket());
+    }
+  }, [selectedDishes]);
+
+  return (
+    <ItemsContainer>
+      <TitleWrapper>
+        <Title>All Items</Title>
+        <SettingsImg src={settingsImg} alt="settings-img" />
+      </TitleWrapper>
+      <ItemsFlexContainer>
+        {getCurrentDishesArr(selectedDishesGroup.activeDishGroup).map(
+          (item) => (
+            <ItemWrapper
+              key={item.id}
+              activeCard={selectedDishes.some((dish) => dish.id === item.id)}
+            >
+              <ItemImg src={item.img} alt={`${item.title}_img`} />
+              <ItemContentWrapper>
+                <ItemContentTitle>{item.title}</ItemContentTitle>
+                <ItemContentText>{item.text}</ItemContentText>
+                <ItemContentPrice>{`$${item.price}`}</ItemContentPrice>
+                <AddDish
+                  onClick={() => changeDish(item)}
+                  alt="add_dish_img"
+                  src={
+                    selectedDishes.some((dish) => dish.id === item.id)
+                      ? chosenDishImg
+                      : addDishImg
+                  }
+                />
+              </ItemContentWrapper>
+            </ItemWrapper>
+          )
+        )}
+      </ItemsFlexContainer>
+    </ItemsContainer>
+  );
+};
 
 const ItemsContainer = styled.div``;
 
 const TitleWrapper = styled.div`
   display: flex;
+  padding-bottom: 15px;
 `;
 
 const Title = styled.h2`
@@ -28,13 +97,9 @@ const ItemsFlexContainer = styled.div`
   width: 675px;
   justify-content: space-between;
 
-  & > div:last-of-type {
-    margin-right: auto;
-    margin-left: 20px;
-
-    @media (max-width: 580px) {
-      margin: 0;
-    }
+  &::after {
+    content: "";
+    width: 206px;
   }
 
   @media (max-width: 1410px) {
@@ -87,6 +152,11 @@ const ItemWrapper = styled.div`
       transition: all 420ms linear;
     }
   `}
+
+  @media (max-width: 580px) {
+    max-width: 190px;
+    padding-top: ${(props) => (props.activeCard ? "65px" : "70px")};
+  }
 `;
 
 const ItemImg = styled.img`
@@ -94,26 +164,35 @@ const ItemImg = styled.img`
   top: 0;
   left: 50%;
   transform: translate(-50%);
+
+  @media (max-width: 580px) {
+    transform: translate(-50%) scale(0.75, 0.75);
+    top: -23px;
+  }
 `;
 
 const ItemContentWrapper = styled.div`
-  padding: 55px 55px 12px 28px;
+  padding: 55px 25px 12px 28px;
   border-radius: 30px;
   border: 1px solid #f2eeee;
   height: 125px;
   transition: all 420ms linear;
+
+  @media (max-width: 580px) {
+    padding-top: 35px;
+  }
 `;
 
 const ItemContentTitle = styled.p`
   font-weight: 800;
-  font-size: 12px;
+  font-size: 14px;
   line-height: 13px;
   margin-bottom: 8px;
 `;
 
 const ItemContentText = styled.p`
   font-weight: 600;
-  font-size: 10px;
+  font-size: 11px;
   line-height: 18px;
   color: #898686;
   margin-bottom: 10px;
@@ -136,57 +215,3 @@ const AddDish = styled.img`
   cursor: pointer;
   transition: all 420ms linear;
 `;
-
-export const DishesItems = () => {
-  const dispatch = useDispatch();
-  const selectedDishesGroup = useSelector((state) => state.activeDishGroup);
-  const selectedDishes = useSelector(
-    (state) => state.basketProcessing.selectedDishes
-  );
-  const changeDish = (item) => dispatch(updateBasket(item));
-  const getCurrentDishesArr = (activeDishGroup) => {
-    if (activeDishGroup === "All") {
-      return dishesConfig;
-    } else {
-      return dishesConfig.filter((item) => item.group === activeDishGroup);
-    }
-  };
-
-  return (
-    <ItemsContainer>
-      <TitleWrapper>
-        <Title>All Items</Title>
-        <SettingsImg src={settingsImg} alt="settings-img" />
-      </TitleWrapper>
-      <ItemsFlexContainer>
-        {getCurrentDishesArr(selectedDishesGroup.activeDishGroup).map(
-          (item) => (
-            <ItemWrapper
-              key={item.id}
-              activeCard={selectedDishes.some((dish) => dish.id === item.id)}
-            >
-              <ItemImg src={item.img} alt={`${item.title}_img`} />
-              <ItemContentWrapper>
-                <ItemContentTitle>{item.title}</ItemContentTitle>
-                <ItemContentText>{item.text}</ItemContentText>
-                <ItemContentPrice>{`$${item.price}`}</ItemContentPrice>
-                <AddDish
-                  onClick={() => {
-                    changeDish(item);
-                    dispatch(showBasket());
-                  }}
-                  alt="add_dish_img"
-                  src={
-                    selectedDishes.some((dish) => dish.id === item.id)
-                      ? chosenDishImg
-                      : addDishImg
-                  }
-                />
-              </ItemContentWrapper>
-            </ItemWrapper>
-          )
-        )}
-      </ItemsFlexContainer>
-    </ItemsContainer>
-  );
-};
