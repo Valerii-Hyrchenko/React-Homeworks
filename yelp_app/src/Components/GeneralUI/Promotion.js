@@ -22,6 +22,7 @@ const PromotionContainer = styled.div`
   @media (max-width: 475px) {
     width: 148px;
     padding-top: 60px;
+    margin-top: 89px;
   }
 `;
 
