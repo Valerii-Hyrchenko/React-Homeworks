@@ -1,8 +1,8 @@
-import { useState } from "react";
+import { useState, memo } from "react";
 import styled from "styled-components";
 import { menuConfig } from "../allConfigsConst";
 
-export const Menu = () => {
+const Menu = () => {
   const [activeItem, setActiveItem] = useState(menuConfig[0]);
 
   const changeActiveItem = (item) => setActiveItem(item);
@@ -115,3 +115,5 @@ const Icon = styled.img`
   transform: translate(-50%, -50%);
   transition: all 200ms linear;
 `;
+
+export default memo(Menu);

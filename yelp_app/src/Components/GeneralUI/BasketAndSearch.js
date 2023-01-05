@@ -1,11 +1,13 @@
 import styled from "styled-components";
 import { BasketProcessing } from "./BasketProcessing";
-import searchIcon from "../../assets/icons/basket/search_icon.svg";
-import basketIcon from "../../assets/icons/basket/basket-icon.svg";
 import { showBasket } from "../../redux/actions";
 import { useDispatch, useSelector } from "react-redux";
+import { memo } from "react";
 
-export const BasketAndSearch = () => {
+import searchIcon from "../../assets/icons/basket/search_icon.svg";
+import basketIcon from "../../assets/icons/basket/basket-icon.svg";
+
+const BasketAndSearch = () => {
   const dispatch = useDispatch();
   const isBasketShow = useSelector((state) => state.isBasketShow.isShow);
   const selectedDishes = useSelector(
@@ -126,3 +128,5 @@ const DishesCounter = styled.p`
     font-size: 8px;
   }
 `;
+
+export default memo(BasketAndSearch);

@@ -1,10 +1,10 @@
 import styled from "styled-components";
-import { useState } from "react";
+import { useState, memo } from "react";
 import { useDispatch } from "react-redux";
 import { selectGroup } from "../../redux/actions";
 import { menuDishesConfig } from "../allConfigsConst";
 
-export const MenuDishes = () => {
+const MenuDishes = () => {
   const [activeDishGroup, setActiveDishGroup] = useState(menuDishesConfig[0]); //передай в компонент DishesItems
   const dispatch = useDispatch();
   const handleChangeActiveDish = (item) => {
@@ -123,3 +123,5 @@ const DishTitle = styled.p`
     left: 63%;
   }
 `;
+
+export default memo(MenuDishes);

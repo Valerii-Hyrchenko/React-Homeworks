@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 import { dishesConfig } from "../allConfigsConst";
+import { useEffect, memo } from "react";
 import {
   showBasket,
   updateBasket,
@@ -10,9 +11,8 @@ import settingsImg from "../../assets/img/dishes_items/settings-img.svg";
 
 import addDishImg from "../../assets/img/dishes_items/add_dish.svg";
 import chosenDishImg from "../../assets/img/dishes_items/chosen_dish.svg";
-import { useEffect } from "react";
 
-export const DishesItems = () => {
+const DishesItems = () => {
   const dispatch = useDispatch();
   const selectedDishesGroup = useSelector((state) => state.activeDishGroup);
   const isFirstBasketShow = useSelector(
@@ -215,3 +215,5 @@ const AddDish = styled.img`
   cursor: pointer;
   transition: all 420ms linear;
 `;
+
+export default memo(DishesItems);

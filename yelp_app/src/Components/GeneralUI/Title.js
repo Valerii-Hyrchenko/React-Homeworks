@@ -1,7 +1,8 @@
 import styled from "styled-components";
+import { memo } from "react";
 import emoji from "../../assets/img/emoji/emoji-title.svg";
 
-export const Title = () => {
+const Title = () => {
   return (
     <TitleContainer>
       <TitleUI>
@@ -62,3 +63,5 @@ const EmojiImg = styled.img`
     width: 40px;
   }
 `;
+
+export default memo(Title);

@@ -1,4 +1,6 @@
 import styled from "styled-components";
+import { memo } from "react";
+
 import man from "../../assets/img/delivery/delivery-man.svg";
 import arrow from "../../assets/img/delivery/arrow.svg";
 
@@ -65,3 +67,5 @@ const Text = styled.p`
 `;
 
 const Arrow = styled.img``;
+
+export default memo(FasterDelivery);

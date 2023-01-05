@@ -1,8 +1,9 @@
 import { useSelector } from "react-redux";
 import styled from "styled-components";
 import avatar from "../../assets/icons/avatar/avatar.svg";
+import { memo } from "react";
 
-export const Avatar = () => {
+const Avatar = () => {
   const currentAuthUser = useSelector(
     (state) => state.currentAuthUser.currentAuthUser
   );
@@ -45,3 +46,5 @@ const AvatarTitle = styled.p`
   margin-top: 13px;
   text-align: center;
 `;
+
+export default memo(Avatar);

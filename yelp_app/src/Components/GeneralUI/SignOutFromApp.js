@@ -2,9 +2,10 @@ import { useNav } from "../../hooks/useNav";
 import app from "../../base";
 import { signOutUser } from "../../redux/actions";
 import { useDispatch } from "react-redux";
+import { memo } from "react";
 import styled from "styled-components";
 
-export const SignOutFromApp = () => {
+const SignOutFromApp = () => {
   const dispatch = useDispatch();
   const { goTo } = useNav();
 
@@ -43,3 +44,5 @@ const SignOutButton = styled.button`
     border: 1px solid #2d9cdb;
   }
 `;
+
+export default memo(SignOutFromApp);
