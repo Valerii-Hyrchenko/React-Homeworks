@@ -312,11 +312,9 @@ const PromotionWrapper = styled.div`
 
         @keyframes news {
           0% {
-            transform: translateX(500px);
             opacity: 0;
           }
           100% {
-            transform: translateX(0);
             opacity: 1;
           }
         }
