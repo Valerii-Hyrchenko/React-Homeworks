@@ -31,16 +31,17 @@ export const Form = ({ pageType }) => {
 
   const dispatch = useDispatch();
   const { goTo } = useNav();
-  const { handleSubmit, handleChange, values, touched, errors, handleBlur } =
-    useFormik({
-      initialValues: currentInitialValues,
-      validationSchema: currentSchemeValid,
-      onSubmit: (values, { resetForm }) => {
-        dispatch(getCurrentDispatch());
-        resetForm(values);
-        goTo("/login");
-      },
-    });
+  const { handleSubmit, handleChange, values, errors, handleBlur } = useFormik({
+    initialValues: currentInitialValues,
+    validationSchema: currentSchemeValid,
+    validateOnChange: false,
+    validateOnBlur: false,
+    onSubmit: (values, { resetForm }) => {
+      dispatch(getCurrentDispatch());
+      resetForm(values);
+      goTo("/login");
+    },
+  });
 
   return (
     <FormWrapper>
@@ -49,7 +50,7 @@ export const Form = ({ pageType }) => {
           <InputWrapper key={id}>
             <Label htmlFor={id}>
               {label}
-              {touched[name] && errors[name] ? (
+              {errors[name] ? (
                 <ErrorMessage>Error: {errors[name]}</ErrorMessage>
               ) : null}
             </Label>
@@ -219,46 +220,3 @@ const registerScheme = Yup.object().shape({
   password: PASS_YUP_SETTING,
   confirmPassword: CONFIRM_PASS_YUP_SETTING,
 });
-
-// const scheme = Yup.object().shape(
-//   {
-//     name: Yup.string().when("name", {
-//       is: (name) => !!name,
-//       then: Yup.string().required("Please, enter name").trim().email(),
-//       otherwise: Yup.string(),
-//     }),
-//     login: Yup.string().when("login", {
-//       is: (login) => !!login,
-//       then: Yup.string().required("Please, enter login").trim().email(),
-//       otherwise: Yup.string(),
-//     }),
-//     password: Yup.string().when("password", {
-//       is: (password) => !!password,
-//       then: Yup.string()
-//         .required("Please, enter password")
-//         .trim()
-//         .matches(
-//           PASS_REGEX,
-//           "Password must be minimum eight characters, at least one letter and one number"
-//         ),
-//       otherwise: Yup.string(),
-//     }),
-//     confirmPassword: Yup.string().when("confirmPassword", {
-//       is: (confirmPassword) => !!confirmPassword,
-//       then: Yup.string()
-//         .required("Please, confirm password")
-//         .trim()
-//         .matches(
-//           PASS_REGEX,
-//           "Password must be minimum eight characters, at least one letter and one number"
-//         ),
-//       otherwise: Yup.string(),
-//     }),
-//   },
-//   [
-//     ["name", "name"],
-//     ["login", "login"],
-//     ["password", "password"],
-//     ["confirmPassword", "confirmPassword"],
-//   ]
-// );
